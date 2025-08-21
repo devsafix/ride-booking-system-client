@@ -42,8 +42,8 @@ export default authSlice.reducer;
 
 // Selector to easily get the current user's data from the state.
 export const selectCurrentUser = (state: { auth: IAuthState }) =>
-  state.auth.user;
+  state?.auth?.user;
 
 // Selector to get the current user's token.
 export const selectCurrentToken = (state: { auth: IAuthState }) =>
-  state.auth.token;
+  state?.auth?.token;
