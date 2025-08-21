@@ -1,9 +1,8 @@
 import { baseApi } from "../../baseApi";
 
 const authApi = baseApi.injectEndpoints({
-  endpoints: (builder) => ({
-    // Endpoint for user registration
-    registerUser: builder.mutation({
+  endpoints: (build) => ({
+    registerUser: build.mutation({
       query: (data) => ({
         url: "/auth/register",
         method: "POST",
@@ -11,8 +10,7 @@ const authApi = baseApi.injectEndpoints({
       }),
     }),
 
-    // Endpoint for user login
-    loginUser: builder.mutation({
+    loginUser: build.mutation({
       query: (data) => ({
         url: "/auth/login",
         method: "POST",
@@ -20,8 +18,15 @@ const authApi = baseApi.injectEndpoints({
       }),
     }),
 
-    // Endpoint for user logout
-    logoutUser: builder.mutation({
+    getMe: build.query({
+      query: () => ({
+        url: "/auth/me",
+        method: "GET",
+      }),
+      providesTags: ["USER"],
+    }),
+
+    logoutUser: build.mutation({
       query: () => ({
         url: "/auth/logout",
         method: "POST",
@@ -34,4 +39,5 @@ export const {
   useRegisterUserMutation,
   useLoginUserMutation,
   useLogoutUserMutation,
+  useGetMeQuery,
 } = authApi;
