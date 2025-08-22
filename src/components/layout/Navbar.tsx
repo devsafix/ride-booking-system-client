@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Link, useNavigate } from "react-router";
+import { Link } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-hot-toast";
 import { cn } from "@/lib/utils";
@@ -25,6 +25,7 @@ import {
   selectCurrentUser,
 } from "@/redux/features/auth/auth.slice";
 import Logo from "@/assets/icons/logo";
+import userIcon from "../../assets/images/user-icon.webp";
 
 const navLinks = {
   unauthenticated: [
@@ -53,7 +54,6 @@ const navLinks = {
 };
 
 export default function Navbar() {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector(selectCurrentUser);
   const [logoutUser] = useLogoutUserMutation();
@@ -63,7 +63,6 @@ export default function Navbar() {
       await logoutUser({}).unwrap();
       dispatch(logoutAction());
       toast.success("Logged out successfully!");
-      navigate("/login");
     } catch (error: any) {
       toast.error(error?.data?.message || "Logout failed. Please try again.");
     }
@@ -111,25 +110,19 @@ export default function Navbar() {
             // If user is logged in, show a dropdown menu
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button
-                  variant="ghost"
-                  className="relative h-8 w-8 rounded-full"
-                >
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-sm text-primary-foreground">
-                    {/* The .data property is removed here */}
-                    {user?.name.charAt(0).toUpperCase()}
+                <div className="relative h-13 w-13 rounded-full">
+                  <div className="flex h-13 w-13 items-center justify-center rounded-full cursor-pointer">
+                    <img src={userIcon} alt="" />
                   </div>
-                </Button>
+                </div>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-56" align="end" forceMount>
                 <DropdownMenuLabel className="font-normal">
                   <div className="flex flex-col space-y-1">
                     <p className="text-sm font-medium leading-none">
-                      {/* The .data property is removed here */}
                       {user?.name}
                     </p>
                     <p className="text-xs leading-none text-muted-foreground">
-                      {/* The .data property is removed here */}
                       {user?.email}
                     </p>
                   </div>
