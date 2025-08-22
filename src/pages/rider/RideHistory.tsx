@@ -27,7 +27,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Filter, WifiSync } from "lucide-react";
+import { Eye, Filter, WifiSync } from "lucide-react";
+import { useNavigate } from "react-router";
 
 interface Ride {
   _id: string;
@@ -39,6 +40,8 @@ interface Ride {
 }
 
 export default function RideHistory() {
+  const navigate = useNavigate();
+
   const [currentPage, setCurrentPage] = useState(1);
   const [filters, setFilters] = useState({
     status: "",
@@ -76,6 +79,10 @@ export default function RideHistory() {
       endDate: "",
     });
     setCurrentPage(1);
+  };
+
+  const handleViewDetails = (rideId: string) => {
+    navigate(`/ride-details/${rideId}`);
   };
 
   if (isLoading) {
@@ -220,6 +227,7 @@ export default function RideHistory() {
               <TableHead>Pickup Location</TableHead>
               <TableHead>Drop-off Location</TableHead>
               <TableHead>Date</TableHead>
+              <TableHead>Details</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -255,6 +263,15 @@ export default function RideHistory() {
                   </TableCell>
                   <TableCell>
                     {new Date(ride.createdAt).toLocaleString()}
+                  </TableCell>
+                  <TableCell>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => handleViewDetails(ride._id)}
+                    >
+                      <Eye className="text-gray-500" />
+                    </Button>
                   </TableCell>
                 </TableRow>
               ))

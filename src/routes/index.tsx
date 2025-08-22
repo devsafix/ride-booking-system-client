@@ -13,6 +13,7 @@ import Register from "@/pages/Register";
 import Login from "@/pages/Login";
 import AccountStatus from "@/pages/AccountStatus";
 import Profile from "@/pages/Profile";
+import RideDetails from "@/pages/rider/RideDetails";
 
 export const router = createBrowserRouter([
   {
@@ -64,5 +65,9 @@ export const router = createBrowserRouter([
       { index: true, element: <Navigate to="/driver/analytics" /> },
       ...generateRoutes(driverSidebarItems),
     ],
+  },
+  {
+    path: "ride-details/:id",
+    Component: RideDetails,
   },
 ]);
