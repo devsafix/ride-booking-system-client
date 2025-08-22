@@ -26,6 +26,7 @@ import {
 } from "@/redux/features/auth/auth.slice";
 import Logo from "@/assets/icons/logo";
 import userIcon from "../../assets/images/user-icon.webp";
+import { ModeToggle } from "./ModeToggler";
 
 const navLinks = {
   unauthenticated: [
@@ -106,6 +107,7 @@ export default function Navbar() {
 
         {/* Right side: Auth buttons or User dropdown */}
         <div className="flex items-center gap-2">
+          <ModeToggle />
           {user ? (
             // If user is logged in, show a dropdown menu
             <DropdownMenu>
