@@ -12,7 +12,6 @@ import { driverSidebarItems } from "./driverSidebarItems";
 import Register from "@/pages/Register";
 import Login from "@/pages/Login";
 import AccountStatus from "@/pages/AccountStatus";
-import Profile from "@/pages/Profile";
 import RideDetails from "@/pages/rider/RideDetails";
 
 export const router = createBrowserRouter([
@@ -36,17 +35,13 @@ export const router = createBrowserRouter([
         path: "account-status",
         Component: AccountStatus,
       },
-      {
-        path: "profile",
-        Component: Profile,
-      },
     ],
   },
   {
     Component: withAuth(DashboardLayout, role.admin as TRole),
     path: "/admin",
     children: [
-      { index: true, element: <Navigate to="/admin/analytics" /> },
+      { index: true, element: <Navigate to="/admin/profile" /> },
       ...generateRoutes(adminSidebarItems),
     ],
   },
@@ -54,7 +49,7 @@ export const router = createBrowserRouter([
     Component: withAuth(DashboardLayout, role.rider as TRole),
     path: "/rider",
     children: [
-      { index: true, element: <Navigate to="/rider/ride-request" /> },
+      { index: true, element: <Navigate to="/rider/profile" /> },
       ...generateRoutes(riderSidebarItems),
     ],
   },
@@ -62,7 +57,7 @@ export const router = createBrowserRouter([
     Component: withAuth(DashboardLayout, role.driver as TRole),
     path: "/driver",
     children: [
-      { index: true, element: <Navigate to="/driver/analytics" /> },
+      { index: true, element: <Navigate to="/driver/profile" /> },
       ...generateRoutes(driverSidebarItems),
     ],
   },

@@ -54,13 +54,13 @@ export default function Login() {
       // Redirect based on the user's role
       switch (res.data.user.role) {
         case "admin":
-          navigate("/admin/dashboard");
+          navigate("/admin/profile");
           break;
         case "rider":
-          navigate("/rider/dashboard");
+          navigate("/rider/profile");
           break;
         case "driver":
-          navigate("/driver/dashboard");
+          navigate("/driver/profile");
           break;
         default:
           navigate("/");
