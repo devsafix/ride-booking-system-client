@@ -70,6 +70,10 @@ export default function Login() {
       toast.error(
         error?.data?.message || "Login failed. Please check your credentials."
       );
+      if (error?.data?.message === "The user has been blocked") {
+        navigate("/account-status");
+        return;
+      }
     }
   };
 

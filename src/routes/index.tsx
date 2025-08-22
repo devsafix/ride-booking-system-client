@@ -5,6 +5,7 @@ import Register from "@/pages/Register";
 import { createBrowserRouter } from "react-router";
 import PrivateRoute from "@/components/modules/auth/PrivateRoute";
 import DashboardLayout from "@/components/layout/DashboardLayout";
+import AccountStatus from "@/pages/AccountStatus";
 
 export const router = createBrowserRouter([
   {
@@ -22,6 +23,10 @@ export const router = createBrowserRouter([
       {
         path: "login",
         Component: Login,
+      },
+      {
+        path: "account-status",
+        Component: AccountStatus,
       },
 
       // Rider-specific routes

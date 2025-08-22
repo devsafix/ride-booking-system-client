@@ -113,7 +113,7 @@ export default function Navbar() {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <div className="relative h-13 w-13 rounded-full">
-                  <div className="flex h-13 w-13 items-center justify-center rounded-full cursor-pointer">
+                  <div className="flex h-13 w-13 items-center justify-center rounded-full">
                     <img src={userIcon} alt="" />
                   </div>
                 </div>
