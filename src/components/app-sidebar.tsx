@@ -13,7 +13,6 @@ import {
 } from "@/components/ui/sidebar";
 import { Link } from "react-router";
 import { getSidebarItems } from "@/utils/getSidebarItems";
-import { CircleUserRound } from "lucide-react";
 import { useGetMeQuery } from "@/redux/features/auth/auth.api";
 import Logo from "@/assets/icons/logo";
 
@@ -46,14 +45,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 {item.items.map((menuItem) => (
                   <SidebarMenuItem
                     key={menuItem.title}
-                    className="hover:bg-gray-800 rounded-md"
+                    className="bg-gray-200 rounded-md"
                   >
                     <SidebarMenuButton asChild>
                       <Link
                         to={menuItem.url}
                         className="flex items-center gap-3 p-2 font-medium"
                       >
-                        <CircleUserRound className="h-5 w-5 dark:text-gray-400" />
                         {menuItem.title}
                       </Link>
                     </SidebarMenuButton>

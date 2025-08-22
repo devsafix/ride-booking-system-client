@@ -17,3 +17,8 @@ export interface ISidebarItem {
 }
 
 export type TRole = "admin" | "driver" | "rider";
+
+export interface IRideBook {
+  pickupLocation: { latitude: number; longitude: number };
+  dropOffLocation: { latitude: number; longitude: number };
+}
