@@ -1,9 +1,83 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { useUpdateUserProfileMutation } from "@/redux/features/auth/auth.api";
+import {
+  useChangePasswordMutation,
+  useUpdateUserProfileMutation,
+} from "@/redux/features/auth/auth.api";
 import { selectCurrentUser } from "@/redux/features/auth/auth.slice";
 import { toast } from "react-hot-toast";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+
+// A reusable component for the password change feature
+const ChangePasswordForm = () => {
+  const [passwords, setPasswords] = useState({
+    oldPassword: "",
+    newPassword: "",
+  });
+  const [changePassword, { isLoading }] = useChangePasswordMutation();
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPasswords({ ...passwords, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (passwords.newPassword.length < 6) {
+      toast.error("New password must be at least 6 characters long.");
+      return;
+    }
+    try {
+      await changePassword(passwords).unwrap();
+      toast.success("Password changed successfully!");
+      setPasswords({ oldPassword: "", newPassword: "" });
+    } catch (error: any) {
+      toast.error(error?.data?.message || "Failed to change password.");
+    }
+  };
+
+  return (
+    <Card className="w-full max-w-lg mt-6">
+      <CardHeader>
+        <CardTitle>Change Password</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <Label className="mb-2" htmlFor="oldPassword">
+              Current Password
+            </Label>
+            <Input
+              id="oldPassword"
+              name="oldPassword"
+              type="password"
+              value={passwords.oldPassword}
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <Label className="mb-2" htmlFor="newPassword">
+              New Password
+            </Label>
+            <Input
+              id="newPassword"
+              name="newPassword"
+              type="password"
+              value={passwords.newPassword}
+              onChange={handleChange}
+            />
+          </div>
+          <Button type="submit" disabled={isLoading}>
+            {isLoading ? "Updating..." : "Change Password"}
+          </Button>
+        </form>
+      </CardContent>
+    </Card>
+  );
+};
 
 const RiderProfile = () => {
   const user = useSelector(selectCurrentUser);
@@ -22,55 +96,50 @@ const RiderProfile = () => {
     try {
       await updateProfile({ id: user?._id as string, data: formData }).unwrap();
       toast.success("Profile updated successfully!");
-    } catch (error) {
-      toast.error("Failed to update profile.");
+    } catch (error: any) {
+      toast.error(error?.data?.message || "Failed to update profile.");
     }
   };
 
   return (
-    <div className="p-6">
-      <h2 className="text-2xl font-bold mb-4">Rider Profile</h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label
-            htmlFor="name"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Name
-          </label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
-          />
-        </div>
-        <div>
-          <label
-            htmlFor="email"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Contact Number
-          </label>
-          <input
-            type="text"
-            id="contactNo"
-            name="contactNo"
-            value={formData.contactNo}
-            onChange={handleChange}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
-          />
-        </div>
-        <button
-          type="submit"
-          disabled={isLoading}
-          className="px-4 py-2 bg-primary text-white rounded-md"
-        >
-          {isLoading ? "Updating..." : "Update Profile"}
-        </button>
-      </form>
+    <div className="flex flex-col items-center p-6">
+      <Card className="w-full max-w-lg">
+        <CardHeader>
+          <CardTitle>Rider Profile</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <Label className="mb-2" htmlFor="name">
+                Name
+              </Label>
+              <Input
+                id="name"
+                name="name"
+                type="text"
+                value={formData.name}
+                onChange={handleChange}
+              />
+            </div>
+            <div>
+              <Label className="mb-2" htmlFor="contactNo">
+                Contact Number
+              </Label>
+              <Input
+                id="contactNo"
+                name="contactNo"
+                type="text"
+                value={formData.contactNo}
+                onChange={handleChange}
+              />
+            </div>
+            <Button type="submit" disabled={isLoading}>
+              {isLoading ? "Updating..." : "Update Profile"}
+            </Button>
+          </form>
+        </CardContent>
+      </Card>
+      <ChangePasswordForm />
     </div>
   );
 };
@@ -80,6 +149,7 @@ const DriverProfile = () => {
   const [formData, setFormData] = useState({
     name: user?.name || "",
     email: user?.email || "",
+    contactNo: user?.contactNo || "",
   });
   const [updateProfile, { isLoading }] = useUpdateUserProfileMutation();
 
@@ -92,55 +162,62 @@ const DriverProfile = () => {
     try {
       await updateProfile({ id: user?._id as string, data: formData }).unwrap();
       toast.success("Profile updated successfully!");
-    } catch (error) {
-      toast.error("Failed to update profile.");
+    } catch (error: any) {
+      toast.error(error?.data?.message || "Failed to update profile.");
     }
   };
 
   return (
-    <div className="p-6">
-      <h2 className="text-2xl font-bold mb-4">Driver Profile</h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label
-            htmlFor="name"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Name
-          </label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
-          />
-        </div>
-        <div>
-          <label
-            htmlFor="email"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Email
-          </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
-          />
-        </div>
-        <button
-          type="submit"
-          disabled={isLoading}
-          className="px-4 py-2 bg-primary text-white rounded-md"
-        >
-          {isLoading ? "Updating..." : "Update Profile"}
-        </button>
-      </form>
+    <div className="flex flex-col items-center p-6">
+      <Card className="w-full max-w-lg">
+        <CardHeader>
+          <CardTitle>Driver Profile</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <Label className="mb-2" htmlFor="name">
+                Name
+              </Label>
+              <Input
+                id="name"
+                name="name"
+                type="text"
+                value={formData.name}
+                onChange={handleChange}
+              />
+            </div>
+            <div>
+              <Label className="mb-2" htmlFor="email">
+                Email
+              </Label>
+              <Input
+                id="email"
+                name="email"
+                type="email"
+                value={formData.email}
+                disabled
+              />
+            </div>
+            <div>
+              <Label className="mb-2" htmlFor="contactNo">
+                Contact Number
+              </Label>
+              <Input
+                id="contactNo"
+                name="contactNo"
+                type="text"
+                value={formData.contactNo}
+                onChange={handleChange}
+              />
+            </div>
+            <Button type="submit" disabled={isLoading}>
+              {isLoading ? "Updating..." : "Update Profile"}
+            </Button>
+          </form>
+        </CardContent>
+      </Card>
+      <ChangePasswordForm />
     </div>
   );
 };
@@ -150,6 +227,7 @@ const AdminProfile = () => {
   const [formData, setFormData] = useState({
     name: user?.name || "",
     email: user?.email || "",
+    contactNo: user?.contactNo || "",
   });
   const [updateProfile, { isLoading }] = useUpdateUserProfileMutation();
 
@@ -162,55 +240,62 @@ const AdminProfile = () => {
     try {
       await updateProfile({ id: user?._id as string, data: formData }).unwrap();
       toast.success("Profile updated successfully!");
-    } catch (error) {
-      toast.error("Failed to update profile.");
+    } catch (error: any) {
+      toast.error(error?.data?.message || "Failed to update profile.");
     }
   };
 
   return (
-    <div className="p-6">
-      <h2 className="text-2xl font-bold mb-4">Admin Profile</h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label
-            htmlFor="name"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Name
-          </label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
-          />
-        </div>
-        <div>
-          <label
-            htmlFor="email"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Email
-          </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
-          />
-        </div>
-        <button
-          type="submit"
-          disabled={isLoading}
-          className="px-4 py-2 bg-primary text-white rounded-md"
-        >
-          {isLoading ? "Updating..." : "Update Profile"}
-        </button>
-      </form>
+    <div className="flex flex-col items-center p-6">
+      <Card className="w-full max-w-lg">
+        <CardHeader>
+          <CardTitle>Admin Profile</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <Label className="mb-2" htmlFor="name">
+                Name
+              </Label>
+              <Input
+                id="name"
+                name="name"
+                type="text"
+                value={formData.name}
+                onChange={handleChange}
+              />
+            </div>
+            <div>
+              <Label className="mb-2" htmlFor="email">
+                Email
+              </Label>
+              <Input
+                id="email"
+                name="email"
+                type="email"
+                value={formData.email}
+                disabled
+              />
+            </div>
+            <div>
+              <Label className="mb-2" htmlFor="contactNo">
+                Contact Number
+              </Label>
+              <Input
+                id="contactNo"
+                name="contactNo"
+                type="text"
+                value={formData.contactNo}
+                onChange={handleChange}
+              />
+            </div>
+            <Button type="submit" disabled={isLoading}>
+              {isLoading ? "Updating..." : "Update Profile"}
+            </Button>
+          </form>
+        </CardContent>
+      </Card>
+      <ChangePasswordForm />
     </div>
   );
 };

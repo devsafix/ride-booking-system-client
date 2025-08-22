@@ -46,6 +46,16 @@ const authApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["USER"],
     }),
+    changePassword: build.mutation<
+      IResponse<null>,
+      { oldPassword: string; newPassword: string }
+    >({
+      query: (data) => ({
+        url: "/auth/change-password",
+        method: "PATCH",
+        data,
+      }),
+    }),
   }),
 });
 
@@ -55,4 +65,5 @@ export const {
   useLogoutUserMutation,
   useGetMeQuery,
   useUpdateUserProfileMutation,
+  useChangePasswordMutation,
 } = authApi;
