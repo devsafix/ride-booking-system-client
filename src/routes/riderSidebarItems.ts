@@ -1,3 +1,4 @@
+import RideHistory from "@/pages/rider/RideHistory";
 import RideRequest from "@/pages/rider/RideRequest";
 import type { ISidebarItem } from "@/types";
 
@@ -9,6 +10,11 @@ export const riderSidebarItems: ISidebarItem[] = [
         title: "Ride Request",
         url: "/rider/ride-request",
         component: RideRequest,
+      },
+      {
+        title: "Ride History",
+        url: "/rider/ride-history",
+        component: RideHistory,
       },
     ],
   },

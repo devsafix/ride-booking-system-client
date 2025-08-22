@@ -43,10 +43,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             <SidebarGroupContent>
               <SidebarMenu>
                 {item.items.map((menuItem) => (
-                  <SidebarMenuItem
-                    key={menuItem.title}
-                    className="bg-gray-200 rounded-md"
-                  >
+                  <SidebarMenuItem key={menuItem.title} className="rounded-md">
                     <SidebarMenuButton asChild>
                       <Link
                         to={menuItem.url}

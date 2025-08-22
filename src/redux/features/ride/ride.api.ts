@@ -1,6 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { baseApi } from "@/redux/baseApi";
-import type { IResponse } from "@/types";
 
 export const rideApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
@@ -12,19 +10,8 @@ export const rideApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["RIDER"],
     }),
-    getMyRides: build.query<
-      IResponse<null>,
-      {
-        page?: number;
-        limit?: number;
-        status?: string;
-        minFare?: number;
-        maxFare?: number;
-        startDate?: string;
-        endDate?: string;
-      }
-    >({
-      query: (params: any) => ({
+    getMyRides: build.query({
+      query: (params) => ({
         url: "/rides/my",
         method: "GET",
         params,
