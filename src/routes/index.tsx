@@ -6,6 +6,7 @@ import { createBrowserRouter } from "react-router";
 import PrivateRoute from "@/components/modules/auth/PrivateRoute";
 import DashboardLayout from "@/components/layout/DashboardLayout";
 import AccountStatus from "@/pages/AccountStatus";
+import Profile from "@/pages/Profile";
 
 export const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ export const router = createBrowserRouter([
       {
         path: "account-status",
         Component: AccountStatus,
+      },
+      {
+        path: "profile",
+        Component: Profile,
       },
 
       // Rider-specific routes

@@ -129,6 +129,9 @@ export default function Navbar() {
                     </p>
                   </div>
                 </DropdownMenuLabel>
+                <DropdownMenuItem asChild>
+                  <Link to="/profile">Profile</Link>
+                </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
                   onClick={handleLogout}

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import type { IResponse } from "@/types";
 import { baseApi } from "../../baseApi";
 
 const authApi = baseApi.injectEndpoints({
@@ -32,6 +34,18 @@ const authApi = baseApi.injectEndpoints({
         method: "POST",
       }),
     }),
+
+    updateUserProfile: build.mutation<
+      IResponse<null>,
+      { id: string; data: any }
+    >({
+      query: ({ id, data }) => ({
+        url: `/users/${id}`,
+        method: "PATCH",
+        data,
+      }),
+      invalidatesTags: ["USER"],
+    }),
   }),
 });
 
@@ -40,4 +54,5 @@ export const {
   useLoginUserMutation,
   useLogoutUserMutation,
   useGetMeQuery,
+  useUpdateUserProfileMutation,
 } = authApi;
