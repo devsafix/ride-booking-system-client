@@ -7,7 +7,7 @@ export const driverSidebarItems: ISidebarItem[] = [
     items: [
       {
         title: "Bookings",
-        url: "/user/bookings",
+        url: "/driver/analytics",
         component: Home,
       },
     ],

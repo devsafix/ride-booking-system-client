@@ -1,14 +1,14 @@
-import Home from "@/pages/Home";
+import RideRequest from "@/pages/rider/RideRequest";
 import type { ISidebarItem } from "@/types";
 
 export const riderSidebarItems: ISidebarItem[] = [
   {
-    title: "History",
+    title: "Ride Management",
     items: [
       {
-        title: "Bookings",
-        url: "/user/bookings",
-        component: Home,
+        title: "Ride Request",
+        url: "/rider/ride-request",
+        component: RideRequest,
       },
     ],
   },

@@ -31,26 +31,26 @@ import { ModeToggle } from "./ModeToggler";
 const navLinks = {
   unauthenticated: [
     { href: "/", label: "Home" },
-    { href: "/features", label: "Features" },
     { href: "/about", label: "About" },
+    { href: "/features", label: "Features" },
   ],
   rider: [
     { href: "/", label: "Home" },
-    { href: "/rider/book-ride", label: "Book a Ride" },
-    { href: "/rider/history", label: "Ride History" },
-    { href: "/rider/dashboard", label: "Dashboard" },
+    { href: "/about", label: "About" },
+    { href: "/features", label: "Features" },
+    { href: "/rider", label: "Dashboard" },
   ],
   driver: [
     { href: "/", label: "Home" },
-    { href: "/driver/dashboard", label: "Dashboard" },
-    { href: "/driver/trips", label: "My Trips" },
-    { href: "/driver/earnings", label: "Earnings" },
+    { href: "/about", label: "About" },
+    { href: "/features", label: "Features" },
+    { href: "/driver", label: "Dashboard" },
   ],
   admin: [
     { href: "/", label: "Home" },
-    { href: "/admin/dashboard", label: "Dashboard" },
-    { href: "/admin/users", label: "Manage Users" },
-    { href: "/admin/analytics", label: "Analytics" },
+    { href: "/about", label: "About" },
+    { href: "/features", label: "Features" },
+    { href: "/admin", label: "Dashboard" },
   ],
 };
 

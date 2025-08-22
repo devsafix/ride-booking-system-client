@@ -1,10 +1,16 @@
 import App from "@/App";
-import Home from "@/pages/Home";
-import Login from "@/pages/Login";
-import Register from "@/pages/Register";
-import { createBrowserRouter } from "react-router";
-import PrivateRoute from "@/components/modules/auth/PrivateRoute";
 import DashboardLayout from "@/components/layout/DashboardLayout";
+import { role } from "@/constants/role";
+import type { TRole } from "@/types";
+import { generateRoutes } from "@/utils/generateRoutes";
+import { withAuth } from "@/utils/withAuth";
+import { createBrowserRouter, Navigate } from "react-router";
+import { adminSidebarItems } from "./adminSidebarItems";
+import Home from "@/pages/Home";
+import { riderSidebarItems } from "./riderSidebarItems";
+import { driverSidebarItems } from "./driverSidebarItems";
+import Register from "@/pages/Register";
+import Login from "@/pages/Login";
 import AccountStatus from "@/pages/AccountStatus";
 import Profile from "@/pages/Profile";
 
@@ -33,66 +39,30 @@ export const router = createBrowserRouter([
         path: "profile",
         Component: Profile,
       },
-
-      // Rider-specific routes
-      {
-        path: "rider",
-        // Use `element` to pass props to the PrivateRoute component
-        element: <PrivateRoute allowedRoles={["rider"]} />,
-        children: [
-          {
-            path: "",
-            Component: DashboardLayout,
-            children: [
-              {
-                index: true,
-                Component: Home,
-              },
-              // Add other rider pages here
-            ],
-          },
-        ],
-      },
-
-      // Driver-specific routes
-      {
-        path: "driver",
-
-        element: <PrivateRoute allowedRoles={["driver"]} />,
-        children: [
-          {
-            path: "",
-            Component: DashboardLayout,
-            children: [
-              {
-                index: true,
-                Component: Home,
-              },
-              // Add other driver pages here
-            ],
-          },
-        ],
-      },
-
-      // Admin-specific routes
-      {
-        path: "admin",
-
-        element: <PrivateRoute allowedRoles={["admin"]} />,
-        children: [
-          {
-            path: "",
-            Component: DashboardLayout,
-            children: [
-              {
-                index: true,
-                Component: Home,
-              },
-              // Add other admin pages here
-            ],
-          },
-        ],
-      },
+    ],
+  },
+  {
+    Component: withAuth(DashboardLayout, role.admin as TRole),
+    path: "/admin",
+    children: [
+      { index: true, element: <Navigate to="/admin/analytics" /> },
+      ...generateRoutes(adminSidebarItems),
+    ],
+  },
+  {
+    Component: withAuth(DashboardLayout, role.rider as TRole),
+    path: "/rider",
+    children: [
+      { index: true, element: <Navigate to="/rider/ride-request" /> },
+      ...generateRoutes(riderSidebarItems),
+    ],
+  },
+  {
+    Component: withAuth(DashboardLayout, role.driver as TRole),
+    path: "/driver",
+    children: [
+      { index: true, element: <Navigate to="/driver/analytics" /> },
+      ...generateRoutes(driverSidebarItems),
     ],
   },
 ]);
