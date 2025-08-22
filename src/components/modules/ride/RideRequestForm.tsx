@@ -7,8 +7,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-
-// Redux Toolkit Query Hook
 import { useRequestRideMutation } from "@/redux/features/ride/ride.api";
 
 interface LocationData {
@@ -28,7 +26,6 @@ const RideRequestForm = () => {
   });
   const [requestRide, { isLoading }] = useRequestRideMutation();
 
-  // Handle changes for nested location objects
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement>,
     locationType: "pickupLocation" | "dropOffLocation"
@@ -48,6 +45,10 @@ const RideRequestForm = () => {
     try {
       const res = await requestRide(formData).unwrap();
       toast.success(res.message || "Ride requested successfully!");
+      setFormData({
+        pickupLocation: { latitude: 0, longitude: 0 },
+        dropOffLocation: { latitude: 0, longitude: 0 },
+      });
     } catch (error: any) {
       toast.error(
         error?.data?.message || "Failed to request ride. Please try again."
@@ -119,7 +120,6 @@ const RideRequestForm = () => {
               </div>
             </div>
 
-            {/* Fare Estimation & Payment Method (Placeholder for future feature) */}
             <div className="rounded-md border p-4 text-center text-sm text-gray-500">
               <p>
                 Fare estimation and payment method selection will be available
