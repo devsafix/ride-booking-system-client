@@ -6,8 +6,6 @@ import useAuthCheck from "./hooks/useAuthCheck";
 function App() {
   const authChecked = useAuthCheck();
 
-  console.log(authChecked)
-
   if (!authChecked) {
     return (
       <div className="flex h-screen items-center justify-center">

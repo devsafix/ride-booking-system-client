@@ -22,11 +22,13 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
+    // The payload type is updated to reflect the 'data' property
     setCredentials: (
       state,
-      action: PayloadAction<{ user: IUser; token: string | null }>
+      action: PayloadAction<{ user: { data: IUser }; token: string | null }>
     ) => {
-      state.user = action.payload.user;
+      // The state is now correctly updated with the nested user data.
+      state.user = action.payload.user.data;
       state.token = action.payload.token;
     },
     logout: (state) => {
