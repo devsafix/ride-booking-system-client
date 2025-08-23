@@ -1,3 +1,4 @@
+import CallToAction from "@/components/modules/home/CallToAction";
 import HeroBanner from "@/components/modules/home/HeroBanner";
 import HowItWorks from "@/components/modules/home/HowItWorks";
 import ServiceHighlights from "@/components/modules/home/ServiceHighlights";
@@ -10,6 +11,7 @@ export default function Home() {
       <HowItWorks />
       <ServiceHighlights />
       <Testimonials />
+      <CallToAction />
     </div>
   );
 }

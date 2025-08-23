@@ -77,7 +77,7 @@ export default function Navbar() {
     : navLinks.unauthenticated;
 
   return (
-    <header className="border-b py-2 px-4 md:px-6">
+    <header className="border-b py-2 px-4 md:px-6 sticky top-0 z-50 backdrop-blur-xl">
       <div className="flex h-16 max-w-7xl mx-auto items-center justify-between gap-4">
         {/* Left side: Logo */}
         <div className="flex items-center gap-6">
