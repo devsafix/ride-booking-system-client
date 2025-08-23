@@ -96,71 +96,118 @@ const HeroBanner: React.FC = () => {
 
   return (
     <section className="relative min-h-[80vh] flex items-center justify-center px-4 md:py-16 py-10">
-      <div className="max-w-5xl text-center space-y-10">
-        {/* Title */}
-        <h1 className="text-5xl md:text-6xl dark:text-muted-foreground font-extrabold leading-tight tracking-tight">
-          {content.title}
-        </h1>
+      <div className="max-w-7xl w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          {/* Left Content */}
+          <div className="text-center lg:text-left space-y-10">
+            {/* Title */}
+            <h1 className="text-4xl md:text-6xl font-extrabold leading-tight tracking-tight">
+              {content.title}
+            </h1>
 
-        {/* Subtitle */}
-        <p className="text-lg md:text-xl dark:text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-          {content.subtitle}
-        </p>
+            {/* Subtitle */}
+            <p className="text-md md:text-xl dark:text-muted-foreground max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+              {content.subtitle}
+            </p>
 
-        {/* Features */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-8">
-          {content.features.map((feature, index) => (
-            <div
-              key={index}
-              className="flex flex-col items-center space-y-2 p-6 rounded-xl border border-gray-800 hover:border-gray-600 transition"
-            >
-              <feature.icon className="h-6 w-6" />
-              <span className="text-sm font-medium dark:text-muted-foreground">
-                {feature.text}
-              </span>
+            {/* Features */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3 gap-6 mt-8">
+              {content.features.map((feature, index) => (
+                <div
+                  key={index}
+                  className="flex flex-col lg:flex-row xl:flex-col items-center lg:items-start xl:items-center space-y-2 lg:space-y-0 lg:space-x-3 xl:space-x-0 xl:space-y-2 p-3 rounded-xl border border-gray-800 hover:border-gray-600 transition"
+                >
+                  <feature.icon className="h-6 w-6" />
+                  <span className="text-sm font-medium dark:text-muted-foreground">
+                    {feature.text}
+                  </span>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
 
-        {/* CTA */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-8">
-          <Button
-            size="lg"
-            onClick={handleCTAClick}
-            className="px-8 py-3 rounded-xl font-semibold"
-          >
-            {content.cta}
-            <ArrowRight className="ml-2 h-4 w-4" />
-          </Button>
-
-          {!user && (
-            <Link to={"/login"}>
+            {/* CTA */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center mt-8">
               <Button
-                variant="outline"
                 size="lg"
-                className="px-8 py-3 rounded-xl font-semibold border border-black"
+                onClick={handleCTAClick}
+                className="px-8 py-3 rounded-xl font-semibold"
               >
-                Sign In
+                {content.cta}
+                <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
-            </Link>
-          )}
+
+              {!user && (
+                <Link to={"/login"}>
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    className="px-8 py-3 rounded-xl font-semibold border border-black"
+                  >
+                    Sign In
+                  </Button>
+                </Link>
+              )}
+            </div>
+          </div>
+
+          {/* Right Image */}
+          <div className="relative">
+            <div className="relative overflow-hidden rounded-2xl">
+              <img
+                src="https://i.ibb.co.com/nqjJSf5N/riding-photo.webp"
+                alt="Ride booking experience"
+                className="w-full h-auto object-cover rounded-2xl shadow-2xl"
+                loading="lazy"
+              />
+
+              {/* Image Overlay for better contrast */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent rounded-2xl"></div>
+
+              {/* Floating Elements */}
+              <div className="absolute top-6 right-6 bg-white/90 dark:bg-black/90 backdrop-blur-sm rounded-lg px-4 py-2 shadow-lg">
+                <div className="flex items-center space-x-2">
+                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                  <span className="text-sm font-medium">Live Tracking</span>
+                </div>
+              </div>
+
+              <div className="absolute bottom-6 left-6 bg-white/90 dark:bg-black/90 backdrop-blur-sm rounded-lg px-4 py-2 shadow-lg">
+                <div className="flex items-center space-x-2">
+                  <Shield className="h-4 w-4 text-primary" />
+                  <span className="text-sm font-medium">Safe & Secure</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Background decorative elements */}
+            <div className="absolute -top-4 -right-4 w-24 h-24 bg-primary/10 rounded-full blur-xl"></div>
+            <div className="absolute -bottom-8 -left-8 w-32 h-32 bg-primary/5 rounded-full blur-2xl"></div>
+          </div>
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 md:mt-16 mt-10 pt-8 border-t border-gray-800">
-          <div>
-            <p className="text-3xl font-bold">10K+</p>
-            <p className="text-sm dark:text-muted-foreground">Happy Riders</p>
-          </div>
-          <div>
-            <p className="text-3xl font-bold">2K+</p>
-            <p className="text-sm dark:text-muted-foreground">Active Drivers</p>
-          </div>
-          <div>
-            <p className="text-3xl font-bold">50K+</p>
-            <p className="text-sm dark:text-muted-foreground">
-              Rides Completed
-            </p>
+        <div className="w-full border-t border-gray-800 md:mt-20 mt-12 pt-8">
+          <div className="flex justify-center">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 lg:gap-40 text-center">
+              <div>
+                <p className="text-3xl font-bold">10K+</p>
+                <p className="text-sm dark:text-muted-foreground">
+                  Happy Riders
+                </p>
+              </div>
+              <div>
+                <p className="text-3xl font-bold">2K+</p>
+                <p className="text-sm dark:text-muted-foreground">
+                  Active Drivers
+                </p>
+              </div>
+              <div>
+                <p className="text-3xl font-bold">50K+</p>
+                <p className="text-sm dark:text-muted-foreground">
+                  Rides Completed
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
