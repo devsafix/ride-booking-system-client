@@ -36,7 +36,7 @@ const steps: Step[] = [
 
 const HowItWorks: React.FC = () => {
   return (
-    <section className="md:py-16 py-10 bg-muted/40">
+    <section className="md:py-16 py-10 bg-muted/30">
       <div className="max-w-6xl mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl font-bold mb-4">How It Works</h2>
