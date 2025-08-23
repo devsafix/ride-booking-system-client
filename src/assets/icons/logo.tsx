@@ -11,7 +11,7 @@ export default function Logo() {
       <img
         src={theme === "dark" || theme === "system" ? whiteLogo : blackLogo}
         alt="logo"
-        className="h-8"
+        className="h-7"
         loading="lazy"
       />
     </div>
