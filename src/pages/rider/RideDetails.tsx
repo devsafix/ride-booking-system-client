@@ -80,7 +80,7 @@ export default function RideDetails() {
   }
 
   return (
-    <div className="p-6 max-w-7xl mx-auto">
+    <div className="p-6 max-w-6xl mx-auto">
       <div className="flex items-center mb-6">
         <Button variant="ghost" size="icon" onClick={() => navigate(-1)}>
           <ArrowLeft className="h-10 w-10" />

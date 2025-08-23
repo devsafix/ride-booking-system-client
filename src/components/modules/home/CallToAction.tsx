@@ -5,7 +5,7 @@ import { ArrowRight, Smartphone, Car, BarChart3 } from "lucide-react";
 const CallToAction: React.FC = () => {
   return (
     <section className="md:py-16 py-10 bg-gradient-to-r from-primary/5 via-primary/10 to-primary/5">
-      <div className="max-w-7xl mx-auto px-4">
+      <div className="max-w-6xl mx-auto px-4">
         <div className="max-w-4xl mx-auto text-center">
           <div className="mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold mb-6">
