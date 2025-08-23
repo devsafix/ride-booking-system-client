@@ -22,3 +22,14 @@ export interface IRideBook {
   pickupLocation: { latitude: number; longitude: number };
   dropOffLocation: { latitude: number; longitude: number };
 }
+
+// Corrected type alias for ride status
+export type IRideStatus =
+  | "requested"
+  | "accepted"
+  | "picked_up"
+  | "in_transit"
+  | "completed"
+  | "cancelled"
+  | "rejected"
+  | "no_driver_found";
