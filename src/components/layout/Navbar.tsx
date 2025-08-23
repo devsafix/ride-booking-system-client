@@ -77,8 +77,8 @@ export default function Navbar() {
     : navLinks.unauthenticated;
 
   return (
-    <header className="border-b px-4 md:px-6">
-      <div className="flex h-16 items-center justify-between gap-4">
+    <header className="border-b py-2 px-4 md:px-6">
+      <div className="flex h-16 max-w-7xl mx-auto items-center justify-between gap-4">
         {/* Left side: Logo */}
         <div className="flex items-center gap-6">
           <Link to="/" className="text-primary hover:text-primary/90">

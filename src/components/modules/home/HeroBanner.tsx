@@ -84,7 +84,7 @@ const HeroBanner: React.FC = () => {
     } else if (role === "driver") {
       navigate("/driver/profile");
     } else if (role === "rider") {
-      navigate("/rider/profile");
+      navigate("/rider/ride-request");
     } else {
       navigate("/register");
     }
@@ -95,7 +95,7 @@ const HeroBanner: React.FC = () => {
   }
 
   return (
-    <section className="relative min-h-[80vh] flex items-center justify-center px-4 py-20">
+    <section className="relative min-h-[80vh] flex items-center justify-center px-4 md:py-16 py-10">
       <div className="max-w-5xl text-center space-y-10">
         {/* Title */}
         <h1 className="text-5xl md:text-6xl dark:text-muted-foreground font-extrabold leading-tight tracking-tight">
@@ -147,7 +147,7 @@ const HeroBanner: React.FC = () => {
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 mt-10 pt-8 border-t border-gray-800">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 md:mt-16 mt-10 pt-8 border-t border-gray-800">
           <div>
             <p className="text-3xl font-bold">10K+</p>
             <p className="text-sm dark:text-muted-foreground">Happy Riders</p>
