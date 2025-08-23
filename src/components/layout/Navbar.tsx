@@ -102,7 +102,7 @@ export default function Navbar() {
                     <Link
                       to={link.href}
                       className={cn(
-                        "text-muted-foreground hover:text-primary py-1.5 font-medium",
+                        "hover:text-primary py-1.5 font-medium",
                         "text-sm"
                       )}
                     >
