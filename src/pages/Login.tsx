@@ -50,22 +50,7 @@ export default function Login() {
       );
 
       toast.success(res.message || "Login successful!");
-
-      // Redirect based on the user's role
-      switch (res.data.user.role) {
-        case "admin":
-          navigate("/admin/profile");
-          break;
-        case "rider":
-          navigate("/rider/profile");
-          break;
-        case "driver":
-          navigate("/driver/profile");
-          break;
-        default:
-          navigate("/");
-          break;
-      }
+      navigate("/");
     } catch (error: any) {
       toast.error(
         error?.data?.message || "Login failed. Please check your credentials."

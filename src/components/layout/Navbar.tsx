@@ -27,6 +27,7 @@ import {
 import Logo from "@/assets/icons/logo";
 import userIcon from "../../assets/images/user-icon.webp";
 import { ModeToggle } from "./ModeToggler";
+import { baseApi } from "@/redux/baseApi";
 
 const navLinks = {
   unauthenticated: [
@@ -63,6 +64,7 @@ export default function Navbar() {
     try {
       await logoutUser({}).unwrap();
       dispatch(logoutAction());
+      dispatch(baseApi.util.resetApiState());
       toast.success("Logged out successfully!");
     } catch (error: any) {
       toast.error(error?.data?.message || "Logout failed. Please try again.");
@@ -129,9 +131,6 @@ export default function Navbar() {
                     </p>
                   </div>
                 </DropdownMenuLabel>
-                <DropdownMenuItem asChild>
-                  <Link to="/profile">Profile</Link>
-                </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
                   onClick={handleLogout}
