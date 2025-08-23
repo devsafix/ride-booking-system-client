@@ -312,7 +312,7 @@ export default function Features() {
         title="Built for Everyone"
         subTitle="Our comprehensive platform delivers tailored experiences for every
               user type, ensuring optimal functionality and satisfaction across
-              all touchpoints."
+              all touch points."
       />
 
       {/* Platform Overview */}

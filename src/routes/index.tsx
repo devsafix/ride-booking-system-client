@@ -16,6 +16,7 @@ import RideDetails from "@/pages/rider/RideDetails";
 import About from "@/pages/About";
 import Features from "@/pages/Features";
 import Faq from "@/pages/Faq";
+import Contact from "@/pages/Contact";
 
 export const router = createBrowserRouter([
   {
@@ -49,6 +50,10 @@ export const router = createBrowserRouter([
       {
         path: "faq",
         Component: Faq,
+      },
+      {
+        path: "contact",
+        Component: Contact,
       },
     ],
   },
