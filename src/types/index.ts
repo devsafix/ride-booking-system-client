@@ -47,3 +47,33 @@ export interface IUser {
   averageRating?: number;
   totalRatings?: number;
 }
+
+export interface IRide {
+  _id: string;
+  startLocation: { latitude: number; longitude: number };
+  endLocation: { latitude: number; longitude: number };
+  fare: number;
+  status: "PENDING" | "ACCEPTED" | "COMPLETED" | "CANCELLED";
+  rider: {
+    _id: string;
+    name: string;
+    email: string;
+  };
+  driver: {
+    _id: string;
+    name: string;
+    email: string;
+  };
+  createdAt: string;
+}
+
+export interface IRideReport {
+  overview: {
+    totalRides: number;
+    completedRides: number;
+    cancelledRides: number;
+    pendingRides: number;
+    totalEarnings: number;
+  };
+  detailedRides: IRide[];
+}

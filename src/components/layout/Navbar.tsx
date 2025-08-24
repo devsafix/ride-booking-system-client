@@ -86,9 +86,9 @@ export default function Navbar() {
 
   return (
     <header className="border-b py-2 px-4 md:px-6 sticky top-0 z-50 backdrop-blur-xl">
-      <div className="flex h-16 max-w-7xl mx-auto items-center justify-between gap-4">
+      <div className="flex h-16 max-w-6xl mx-auto items-center justify-between gap-4">
         {/* Left side: Logo */}
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-5">
           <Link to="/" className="text-primary hover:text-primary/90">
             <Logo />
           </Link>

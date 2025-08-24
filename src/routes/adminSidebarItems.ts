@@ -1,3 +1,4 @@
+import RideOversight from "@/pages/admin/RideOversight";
 import UserManagement from "@/pages/admin/UserManagement";
 import Profile from "@/pages/Profile";
 import type { ISidebarItem } from "@/types";
@@ -20,6 +21,11 @@ export const adminSidebarItems: ISidebarItem[] = [
         title: "User Management",
         url: "/admin/user-management",
         component: UserManagement,
+      },
+      {
+        title: "Ride Oversight",
+        url: "/admin/ride-oversight",
+        component: RideOversight,
       },
     ],
   },

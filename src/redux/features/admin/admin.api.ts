@@ -1,5 +1,5 @@
 import { baseApi } from "@/redux/baseApi";
-import type { IUser } from "@/types";
+import type { IRideReport, IUser } from "@/types";
 
 export const adminApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -42,6 +42,13 @@ export const adminApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["USER"],
     }),
+    getRideReport: builder.query<IRideReport, void>({
+      query: () => ({
+        url: "/admin/reports/rides",
+        method: "GET",
+      }),
+      providesTags: ["RIDER"],
+    }),
   }),
 });
 
@@ -51,4 +58,5 @@ export const {
   useUnblockUserMutation,
   useApproveDriverMutation,
   useSuspendDriverMutation,
+  useGetRideReportQuery,
 } = adminApi;
