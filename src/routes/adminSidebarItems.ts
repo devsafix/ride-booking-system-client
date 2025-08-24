@@ -9,7 +9,7 @@ export const adminSidebarItems: ISidebarItem[] = [
     title: "Dashboard",
     items: [
       {
-        title: "Profile",
+        title: "Update Profile",
         url: "/admin/profile",
         component: Profile,
       },

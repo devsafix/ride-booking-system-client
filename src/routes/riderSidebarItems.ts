@@ -8,7 +8,7 @@ export const riderSidebarItems: ISidebarItem[] = [
     title: "Dashboard",
     items: [
       {
-        title: "Profile",
+        title: "Update Profile",
         url: "/rider/profile",
         component: Profile,
       },

@@ -11,7 +11,7 @@ export const driverSidebarItems: ISidebarItem[] = [
     title: "Dashboard",
     items: [
       {
-        title: "Profile",
+        title: "Update Profile",
         url: "/driver/profile",
         component: Profile,
       },
