@@ -14,7 +14,6 @@ import { RiderProfile } from "@/components/modules/rider/RiderProfile";
 import { DriverProfile } from "@/components/modules/driver/DriverProfile";
 import { AdminProfile } from "@/components/modules/admin/AdminProfile";
 
-// A reusable component for the password change feature
 export const ChangePasswordForm = () => {
   const [passwords, setPasswords] = useState({
     oldPassword: "",
@@ -42,37 +41,40 @@ export const ChangePasswordForm = () => {
   };
 
   return (
-    <Card className="w-full max-w-lg mt-6">
+    <Card>
       <CardHeader>
         <CardTitle>Change Password</CardTitle>
+        <p className="text-sm text-muted-foreground">
+          Update your account password for better security
+        </p>
       </CardHeader>
       <CardContent>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <Label className="mb-2" htmlFor="oldPassword">
-              Current Password
-            </Label>
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="space-y-2">
+            <Label htmlFor="oldPassword">Current Password</Label>
             <Input
               id="oldPassword"
               name="oldPassword"
               type="password"
               value={passwords.oldPassword}
               onChange={handleChange}
+              placeholder="Enter current password"
             />
           </div>
-          <div>
-            <Label className="mb-2" htmlFor="newPassword">
-              New Password
-            </Label>
+
+          <div className="space-y-2">
+            <Label htmlFor="newPassword">New Password</Label>
             <Input
               id="newPassword"
               name="newPassword"
               type="password"
               value={passwords.newPassword}
               onChange={handleChange}
+              placeholder="Enter new password (min. 8 characters)"
             />
           </div>
-          <Button type="submit" disabled={isLoading}>
+
+          <Button type="submit" disabled={isLoading} className="w-full">
             {isLoading ? "Updating..." : "Change Password"}
           </Button>
         </form>
@@ -81,15 +83,35 @@ export const ChangePasswordForm = () => {
   );
 };
 
+// Main Profile Component
 const Profile = () => {
   const { data, isLoading } = useGetMeQuery(undefined);
 
   if (isLoading) {
-    return <div className="p-6">Loading....</div>;
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <div className="flex flex-col items-center space-y-4">
+          <div className="w-8 h-8 border-2 border-muted border-t-foreground rounded-full animate-spin"></div>
+          <p className="text-muted-foreground">Loading...</p>
+        </div>
+      </div>
+    );
   }
 
   if (!data) {
-    return <div className="p-6">You must be logged in to view this page.</div>;
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <Card>
+          <CardContent className="pt-6">
+            <div className="text-center">
+              <p className="text-muted-foreground">
+                You must be logged in to view this page.
+              </p>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    );
   }
 
   switch (data?.data?.role) {
@@ -100,7 +122,17 @@ const Profile = () => {
     case "admin":
       return <AdminProfile />;
     default:
-      return <div className="p-6">Unsupported user role.</div>;
+      return (
+        <div className="flex justify-center items-center min-h-screen">
+          <Card>
+            <CardContent className="pt-6">
+              <div className="text-center">
+                <p className="text-muted-foreground">Unsupported user role.</p>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      );
   }
 };
 

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ChangePasswordForm } from "@/pages/Profile";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   useGetMeQuery,
   useUpdateUserProfileMutation,
@@ -12,13 +12,23 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
 export const AdminProfile = () => {
-  const { data } = useGetMeQuery(undefined);
+  const { data, isLoading: isProfileLoading } = useGetMeQuery(undefined);
   const [formData, setFormData] = useState({
-    name: data?.data.name || "",
-    email: data?.data.email || "",
-    contactNo: data?.data.contactNo || "",
+    name: "",
+    email: "",
+    contactNo: "",
   });
   const [updateProfile, { isLoading }] = useUpdateUserProfileMutation();
+
+  useEffect(() => {
+    if (data?.data) {
+      setFormData({
+        name: data.data.name || "",
+        email: data.data.email || "",
+        contactNo: data.data.contactNo || "",
+      });
+    }
+  }, [data]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -37,57 +47,87 @@ export const AdminProfile = () => {
     }
   };
 
+  if (isProfileLoading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <div className="flex flex-col items-center space-y-4">
+          <div className="w-8 h-8 border-2 border-muted border-t-foreground rounded-full animate-spin"></div>
+          <p className="text-muted-foreground">Loading profile...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="flex flex-col items-center p-6">
-      <Card className="w-full max-w-lg">
-        <CardHeader>
-          <CardTitle>Admin Profile</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <Label className="mb-2" htmlFor="name">
-                Name
-              </Label>
-              <Input
-                id="name"
-                name="name"
-                type="text"
-                value={formData.name}
-                onChange={handleChange}
-              />
-            </div>
-            <div>
-              <Label className="mb-2" htmlFor="email">
-                Email
-              </Label>
-              <Input
-                id="email"
-                name="email"
-                type="email"
-                value={formData.email}
-                disabled
-              />
-            </div>
-            <div>
-              <Label className="mb-2" htmlFor="contactNo">
-                Contact Number
-              </Label>
-              <Input
-                id="contactNo"
-                name="contactNo"
-                type="text"
-                value={formData.contactNo}
-                onChange={handleChange}
-              />
-            </div>
-            <Button type="submit" disabled={isLoading}>
-              {isLoading ? "Updating..." : "Update Profile"}
-            </Button>
-          </form>
-        </CardContent>
-      </Card>
-      <ChangePasswordForm />
+    <div className="container mx-auto p-6 max-w-4xl space-y-8">
+      {/* Header */}
+      <div>
+        <h1 className="text-3xl font-bold tracking-tight">Admin Profile</h1>
+        <p className="text-muted-foreground mt-2">
+          Manage your administrator account settings
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {/* Profile Information */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Profile Information</CardTitle>
+            <p className="text-sm text-muted-foreground">
+              Update your administrator details
+            </p>
+          </CardHeader>
+          <CardContent>
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="space-y-2">
+                <Label htmlFor="name">Full Name</Label>
+                <Input
+                  id="name"
+                  name="name"
+                  type="text"
+                  value={formData.name}
+                  onChange={handleChange}
+                  placeholder="Enter your full name"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="email">Email Address</Label>
+                <Input
+                  id="email"
+                  name="email"
+                  type="email"
+                  value={formData.email}
+                  disabled
+                  className="bg-muted"
+                />
+                <p className="text-xs text-muted-foreground">
+                  Email cannot be changed
+                </p>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="contactNo">Contact Number</Label>
+                <Input
+                  id="contactNo"
+                  name="contactNo"
+                  type="text"
+                  value={formData.contactNo}
+                  onChange={handleChange}
+                  placeholder="Enter your contact number"
+                />
+              </div>
+
+              <Button type="submit" disabled={isLoading} className="w-full">
+                {isLoading ? "Updating..." : "Update Profile"}
+              </Button>
+            </form>
+          </CardContent>
+        </Card>
+
+        {/* Change Password */}
+        <ChangePasswordForm />
+      </div>
     </div>
   );
 };
