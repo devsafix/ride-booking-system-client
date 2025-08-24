@@ -43,7 +43,7 @@ const navLinks = {
     { href: "/features", label: "Features" },
     { href: "/faq", label: "FAQ" },
     { href: "/contact", label: "Contact" },
-    { href: "/rider", label: "Dashboard" },
+    { href: "/rider/ride-request", label: "Dashboard" },
   ],
   driver: [
     { href: "/", label: "Home" },
@@ -59,7 +59,7 @@ const navLinks = {
     { href: "/features", label: "Features" },
     { href: "/faq", label: "FAQ" },
     { href: "/contact", label: "Contact" },
-    { href: "/admin", label: "Dashboard" },
+    { href: "/admin/analytics", label: "Dashboard" },
   ],
 };
 
