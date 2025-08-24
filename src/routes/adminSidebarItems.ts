@@ -1,8 +1,10 @@
-import Analytics from "@/pages/admin/Analytics";
-import RideOversight from "@/pages/admin/RideOversight";
-import UserManagement from "@/pages/admin/UserManagement";
 import Profile from "@/pages/Profile";
 import type { ISidebarItem } from "@/types";
+import { lazy } from "react";
+
+const Analytics = lazy(() => import("@/pages/admin/Analytics"));
+const RideOversight = lazy(() => import("@/pages/admin/RideOversight"));
+const UserManagement = lazy(() => import("@/pages/admin/UserManagement"));
 
 export const adminSidebarItems: ISidebarItem[] = [
   {

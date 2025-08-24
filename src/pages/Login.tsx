@@ -48,7 +48,6 @@ export default function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [loginUser, { isLoading }] = useLoginUserMutation();
-
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -64,6 +63,22 @@ export default function Login() {
         setCredentials({ user: res.data.user, token: res.data.accessToken })
       );
       toast.success(res.message || "Login successful!");
+
+      // switch (res?.data?.user?.role) {
+      //   case "admin":
+      //     navigate("/admin/profile", { replace: true });
+      //     break;
+      //   case "rider":
+      //     navigate("/rider/profile", { replace: true });
+      //     break;
+      //   case "driver":
+      //     navigate("/driver/profile", { replace: true });
+      //     break;
+      //   default:
+      //     navigate("/", { replace: true });
+      //     break;
+      // }
+
       navigate("/");
     } catch (error: any) {
       toast.error(
@@ -194,6 +209,7 @@ export default function Login() {
                 <Form {...form}>
                   <form
                     onSubmit={form.handleSubmit(onSubmit)}
+                    noValidate
                     className="space-y-6"
                   >
                     {/* Email Field */}
@@ -278,16 +294,6 @@ export default function Login() {
                       Create one here
                     </Link>
                   </p>
-                </div>
-
-                {/* Additional Help */}
-                <div className="mt-4 text-center">
-                  <Link
-                    to="/forgot-password"
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    Forgot your password?
-                  </Link>
                 </div>
               </CardContent>
             </Card>

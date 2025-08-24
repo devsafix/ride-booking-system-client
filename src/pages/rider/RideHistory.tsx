@@ -70,7 +70,12 @@ export default function RideHistory() {
   const totalPages = Math.ceil(meta.total / meta.limit) || 1;
 
   const handleFilterChange = (key: string, value: string) => {
-    setFilters((prev) => ({ ...prev, [key]: value }));
+    if (value === "all") {
+      setFilters((prev) => ({ ...prev, status: "" }));
+    } else {
+      setFilters((prev) => ({ ...prev, [key]: value }));
+    }
+
     setCurrentPage(1);
   };
 
@@ -92,7 +97,7 @@ export default function RideHistory() {
   const handleCancel = async (rideId: string) => {
     try {
       await cancelRide(rideId).unwrap();
-      toast.success("Ride accepted! Head to the pickup location.");
+      toast.success("Ride canceled successfully.");
     } catch (error: any) {
       toast.error(error?.data?.message || "Failed to accept ride.");
     }

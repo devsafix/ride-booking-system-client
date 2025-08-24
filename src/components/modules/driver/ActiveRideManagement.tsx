@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import {
-  useGetAcceptedRidesQuery,
+  useGetActiveRidesQuery,
   useUpdateRideStatusMutation,
 } from "@/redux/features/drive/drive.api";
 import type { IRideStatus } from "@/types";
@@ -30,7 +30,7 @@ const statusOptions = {
 
 // Active Ride Management Component
 const ActiveRideManagement = () => {
-  const { data, isLoading: isFetching } = useGetAcceptedRidesQuery(undefined);
+  const { data, isLoading: isFetching } = useGetActiveRidesQuery(undefined);
   const [updateRideStatus, { isLoading }] = useUpdateRideStatusMutation();
 
   const [activeRide, setActiveRide] = useState<any | null>(null);

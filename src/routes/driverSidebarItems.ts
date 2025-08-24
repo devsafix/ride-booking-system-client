@@ -1,8 +1,10 @@
 import EarningsDashboard from "@/pages/driver/EarningsDashboard";
-import RideHistory from "@/pages/driver/RideHistory";
 import ManageRides from "@/pages/driver/ManageRides";
 import Profile from "@/pages/Profile";
 import type { ISidebarItem } from "@/types";
+import { lazy } from "react";
+
+const RideHistory = lazy(() => import("@/pages/driver/RideHistory"));
 
 export const driverSidebarItems: ISidebarItem[] = [
   {

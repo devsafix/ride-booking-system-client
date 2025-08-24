@@ -32,9 +32,9 @@ export const driverAndRideApi = baseApi.injectEndpoints({
       providesTags: ["RIDER"],
     }),
     // Gets a list of pending ride requests for the driver
-    getAcceptedRides: builder.query<any, void>({
+    getActiveRides: builder.query<any, void>({
       query: () => ({
-        url: "/rides/accepted-rides",
+        url: "/rides/active-rides",
         method: "GET",
       }),
       providesTags: ["RIDER"],
@@ -96,6 +96,6 @@ export const {
   useRejectRideMutation,
   useUpdateRideStatusMutation,
   useGetMyRidesQuery,
-  useGetAcceptedRidesQuery,
+  useGetActiveRidesQuery,
   useCancelRideMutation,
 } = driverAndRideApi;

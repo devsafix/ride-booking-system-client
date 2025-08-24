@@ -12,11 +12,13 @@ import { driverSidebarItems } from "./driverSidebarItems";
 import Register from "@/pages/Register";
 import Login from "@/pages/Login";
 import AccountStatus from "@/pages/AccountStatus";
-import RideDetails from "@/pages/rider/RideDetails";
 import About from "@/pages/About";
 import Features from "@/pages/Features";
 import Faq from "@/pages/Faq";
 import Contact from "@/pages/Contact";
+import { lazy } from "react";
+
+const RideDetails = lazy(() => import("@/pages/rider/RideDetails"));
 
 export const router = createBrowserRouter([
   {
