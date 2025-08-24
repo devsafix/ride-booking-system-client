@@ -5,13 +5,10 @@ import type { IRideStatus } from "@/types";
 export const driverAndRideApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     updateAvailability: builder.mutation<void, { isAvailable: boolean }>({
-      query: (body) => ({
+      query: (data) => ({
         url: "/drivers/availability",
         method: "PATCH",
-        body,
-        headers: {
-          "Content-Type": "application/json", // Ensure this is set
-        },
+        data,
       }),
       invalidatesTags: ["DRIVER"],
     }),
@@ -63,10 +60,10 @@ export const driverAndRideApi = baseApi.injectEndpoints({
       any,
       { id: string; status: IRideStatus }
     >({
-      query: ({ id, ...body }) => ({
+      query: ({ id, status }) => ({
         url: `/rides/status/${id}`,
         method: "PATCH",
-        body,
+        data: { status },
       }),
       invalidatesTags: ["RIDER"],
     }),

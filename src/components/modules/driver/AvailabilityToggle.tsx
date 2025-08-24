@@ -30,8 +30,6 @@ const AvailabilityToggle = () => {
     const checked = value === "online";
     setIsAvailable(checked);
 
-    console.log(checked);
-
     try {
       await updateAvailability({ isAvailable: checked }).unwrap();
       toast.success(`You are now ${checked ? "online" : "offline"}.`);

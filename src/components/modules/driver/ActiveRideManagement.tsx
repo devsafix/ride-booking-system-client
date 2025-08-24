@@ -46,6 +46,8 @@ const ActiveRideManagement = () => {
   // Handle status update
   const handleStatusUpdate = async () => {
     if (!activeRide) return;
+
+    console.log(selectedStatus);
     try {
       await updateRideStatus({
         id: activeRide._id,
