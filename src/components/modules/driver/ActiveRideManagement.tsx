@@ -86,19 +86,21 @@ const ActiveRideManagement = () => {
 
   if (!activeRide) {
     return (
-      <Card className="bg-card border-border rounded-xl shadow-sm overflow-hidden">
-        <CardContent className="p-6 text-center">
-          <div className="bg-muted rounded-full p-4 inline-flex items-center justify-center mb-4">
-            <Navigation className="h-8 w-8 text-muted-foreground" />
-          </div>
-          <h3 className="text-lg font-medium text-card-foreground mb-2">
-            No Active Rides
-          </h3>
-          <p className="text-muted-foreground">
-            You don't have any active rides at the moment.
-          </p>
-        </CardContent>
-      </Card>
+      <div>
+        <Card className="bg-card max-w-7xl mx-auto border-border rounded-xl shadow-sm overflow-hidden">
+          <CardContent className="p-6 text-center">
+            <div className="bg-muted rounded-full p-4 inline-flex items-center justify-center mb-4">
+              <Navigation className="h-8 w-8 text-muted-foreground" />
+            </div>
+            <h3 className="text-lg font-medium text-card-foreground mb-2">
+              No Active Rides
+            </h3>
+            <p className="text-muted-foreground">
+              You don't have any active rides at the moment.
+            </p>
+          </CardContent>
+        </Card>
+      </div>
     );
   }
 
@@ -110,9 +112,15 @@ const ActiveRideManagement = () => {
             Active Ride with {activeRide.rider?.name || "Passenger"}
           </CardTitle>
           <Badge
-            className={`${statusOptions[activeRide.status as keyof typeof statusOptions]?.color} text-white border-0`}
+            className={`${
+              statusOptions[activeRide.status as keyof typeof statusOptions]
+                ?.color
+            } text-white border-0`}
           >
-            {statusOptions[activeRide.status as keyof typeof statusOptions]?.label}
+            {
+              statusOptions[activeRide.status as keyof typeof statusOptions]
+                ?.label
+            }
           </Badge>
         </div>
       </CardHeader>
@@ -124,14 +132,18 @@ const ActiveRideManagement = () => {
                 <MapPin className="h-4 w-4 text-primary" />
               </div>
               <div>
-                <p className="text-sm font-medium text-muted-foreground">From</p>
+                <p className="text-sm font-medium text-muted-foreground">
+                  From
+                </p>
                 <p className="font-medium text-card-foreground">
-                  {activeRide.pickupLocation?.address || 
-                    `(${activeRide.pickupLocation?.latitude ?? "N/A"}, ${activeRide.pickupLocation?.longitude ?? "N/A"})`}
+                  {activeRide.pickupLocation?.address ||
+                    `(${activeRide.pickupLocation?.latitude ?? "N/A"}, ${
+                      activeRide.pickupLocation?.longitude ?? "N/A"
+                    })`}
                 </p>
               </div>
             </div>
-            
+
             <div className="flex items-start gap-3">
               <div className="bg-primary/10 p-2 rounded-full mt-0.5">
                 <MapPin className="h-4 w-4 text-primary" />
@@ -139,13 +151,15 @@ const ActiveRideManagement = () => {
               <div>
                 <p className="text-sm font-medium text-muted-foreground">To</p>
                 <p className="font-medium text-card-foreground">
-                  {activeRide.dropOffLocation?.address || 
-                    `(${activeRide.dropOffLocation?.latitude ?? "N/A"}, ${activeRide.dropOffLocation?.longitude ?? "N/A"})`}
+                  {activeRide.dropOffLocation?.address ||
+                    `(${activeRide.dropOffLocation?.latitude ?? "N/A"}, ${
+                      activeRide.dropOffLocation?.longitude ?? "N/A"
+                    })`}
                 </p>
               </div>
             </div>
           </div>
-          
+
           <div className="space-y-3">
             {activeRide.rider && (
               <div className="flex items-center gap-3">
@@ -153,40 +167,50 @@ const ActiveRideManagement = () => {
                   <User className="h-4 w-4 text-primary" />
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-muted-foreground">Rider</p>
-                  <p className="font-medium text-card-foreground">{activeRide.rider.name}</p>
+                  <p className="text-sm font-medium text-muted-foreground">
+                    Rider
+                  </p>
+                  <p className="font-medium text-card-foreground">
+                    {activeRide.rider.name}
+                  </p>
                 </div>
               </div>
             )}
-            
+
             {activeRide.scheduledAt && (
               <div className="flex items-center gap-3">
                 <div className="bg-primary/10 p-2 rounded-full">
                   <Calendar className="h-4 w-4 text-primary" />
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-muted-foreground">Scheduled</p>
+                  <p className="text-sm font-medium text-muted-foreground">
+                    Scheduled
+                  </p>
                   <p className="font-medium text-card-foreground">
                     {new Date(activeRide.scheduledAt).toLocaleDateString()}
                   </p>
                 </div>
               </div>
             )}
-            
+
             {activeRide.estimatedDuration && (
               <div className="flex items-center gap-3">
                 <div className="bg-primary/10 p-2 rounded-full">
                   <Clock className="h-4 w-4 text-primary" />
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-muted-foreground">Est. Duration</p>
-                  <p className="font-medium text-card-foreground">{activeRide.estimatedDuration} mins</p>
+                  <p className="text-sm font-medium text-muted-foreground">
+                    Est. Duration
+                  </p>
+                  <p className="font-medium text-card-foreground">
+                    {activeRide.estimatedDuration} mins
+                  </p>
                 </div>
               </div>
             )}
           </div>
         </div>
-        
+
         <div className="pt-4 border-t border-border">
           <div className="flex flex-col sm:flex-row items-center gap-3">
             <Select
