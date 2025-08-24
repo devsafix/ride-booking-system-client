@@ -1,3 +1,4 @@
+import Analytics from "@/pages/admin/Analytics";
 import RideOversight from "@/pages/admin/RideOversight";
 import UserManagement from "@/pages/admin/UserManagement";
 import Profile from "@/pages/Profile";
@@ -18,14 +19,19 @@ export const adminSidebarItems: ISidebarItem[] = [
     title: "Admin Management",
     items: [
       {
-        title: "User Management",
-        url: "/admin/user-management",
-        component: UserManagement,
+        title: "Analytics",
+        url: "/admin/analytics",
+        component: Analytics,
       },
       {
         title: "Ride Oversight",
         url: "/admin/ride-oversight",
         component: RideOversight,
+      },
+      {
+        title: "User Management",
+        url: "/admin/user-management",
+        component: UserManagement,
       },
     ],
   },
