@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import { useGetMyRidesQuery } from "@/redux/features/ride/ride.api";
 import {
@@ -29,6 +30,8 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Eye, Filter, WifiSync } from "lucide-react";
 import { useNavigate } from "react-router";
+import toast from "react-hot-toast";
+import { useCancelRideMutation } from "@/redux/features/drive/drive.api";
 
 interface Ride {
   _id: string;
@@ -41,6 +44,7 @@ interface Ride {
 
 export default function RideHistory() {
   const navigate = useNavigate();
+  const [cancelRide] = useCancelRideMutation();
 
   const [currentPage, setCurrentPage] = useState(1);
   const [filters, setFilters] = useState({
@@ -83,6 +87,15 @@ export default function RideHistory() {
 
   const handleViewDetails = (rideId: string) => {
     navigate(`/ride-details/${rideId}`);
+  };
+
+  const handleCancel = async (rideId: string) => {
+    try {
+      await cancelRide(rideId).unwrap();
+      toast.success("Ride accepted! Head to the pickup location.");
+    } catch (error: any) {
+      toast.error(error?.data?.message || "Failed to accept ride.");
+    }
   };
 
   if (isLoading) {
@@ -235,6 +248,7 @@ export default function RideHistory() {
                 <TableHead>Drop-off Location</TableHead>
                 <TableHead>Date</TableHead>
                 <TableHead>Details</TableHead>
+                <TableHead>Action</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -278,6 +292,14 @@ export default function RideHistory() {
                         onClick={() => handleViewDetails(ride._id)}
                       >
                         <Eye className="text-gray-500" />
+                      </Button>
+                    </TableCell>
+                    <TableCell>
+                      <Button
+                        onClick={() => handleCancel(ride._id)}
+                        className="cursor-pointer"
+                      >
+                        Cancel
                       </Button>
                     </TableCell>
                   </TableRow>

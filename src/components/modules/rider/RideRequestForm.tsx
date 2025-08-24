@@ -14,6 +14,14 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { useRequestRideMutation } from "@/redux/features/ride/ride.api";
 import { MapPin, Navigation, Loader2, Car, Route } from "lucide-react";
+import { useNavigate } from "react-router";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface LocationData {
   latitude: number;
@@ -31,6 +39,8 @@ const RideRequestForm = () => {
     dropOffLocation: { latitude: 0, longitude: 0 },
   });
   const [requestRide, { isLoading }] = useRequestRideMutation();
+
+  const navigate = useNavigate();
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -51,6 +61,7 @@ const RideRequestForm = () => {
     try {
       const res = await requestRide(formData).unwrap();
       toast.success(res.message || "Ride requested successfully!");
+      navigate("/rider/ride-history");
       setFormData({
         pickupLocation: { latitude: 0, longitude: 0 },
         dropOffLocation: { latitude: 0, longitude: 0 },
@@ -64,7 +75,7 @@ const RideRequestForm = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-3xl mx-auto">
         <div>
           {/* Header Section */}
           <div className="mb-8">
@@ -77,7 +88,7 @@ const RideRequestForm = () => {
           </div>
 
           <Card className="shadow-lg border-border/50">
-            <CardHeader className="space-y-2 pb-8">
+            <CardHeader className="space-y-2 pb-8 flex flex-col md:flex-row items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="p-2 rounded-lg bg-muted">
                   <Route className="h-5 w-5 text-foreground" />
@@ -87,10 +98,19 @@ const RideRequestForm = () => {
                     Trip Details
                   </CardTitle>
                   <CardDescription className="text-base mt-1">
-                    Provide your journey coordinates
+                    Your payment will calculate auto with fare
                   </CardDescription>
                 </div>
               </div>
+              <Select>
+                <SelectTrigger className="w-[180px]">
+                  <SelectValue placeholder="Payment" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="bkash">Bkash</SelectItem>
+                  <SelectItem value="nagad">Nagad</SelectItem>
+                </SelectContent>
+              </Select>
             </CardHeader>
 
             <CardContent className="space-y-8">

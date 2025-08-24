@@ -17,17 +17,18 @@ import {
   useUpdateRideStatusMutation,
 } from "@/redux/features/drive/drive.api";
 import type { IRideStatus } from "@/types";
-import { Skeleton } from "@/components/ui/skeleton";
 import { MapPin, Navigation, User, Calendar, Clock } from "lucide-react";
+import { Label } from "@/components/ui/label";
 
 // Define status options with corresponding colors
 const statusOptions = {
-  accepted: { label: "Accepted", color: "bg-blue-500" },
-  picked_up: { label: "Picked Up", color: "bg-amber-500" },
-  in_transit: { label: "In Transit", color: "bg-purple-500" },
-  completed: { label: "Completed", color: "bg-green-500" },
+  accepted: { label: "Accepted", variant: "secondary" as const },
+  picked_up: { label: "Picked Up", variant: "secondary" as const },
+  in_transit: { label: "In Transit", variant: "secondary" as const },
+  completed: { label: "Completed", variant: "default" as const },
 };
 
+// Active Ride Management Component
 const ActiveRideManagement = () => {
   const { data, isLoading: isFetching } = useGetAcceptedRidesQuery(undefined);
   const [updateRideStatus, { isLoading }] = useUpdateRideStatusMutation();
@@ -63,23 +64,19 @@ const ActiveRideManagement = () => {
 
   if (isFetching) {
     return (
-      <Card className="bg-card border-border rounded-xl shadow-sm overflow-hidden">
-        <CardHeader className="pb-3">
-          <Skeleton className="h-7 w-48" />
-          <Skeleton className="h-6 w-24 mt-2" />
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Navigation className="w-5 h-5" />
+            Active Ride
+          </CardTitle>
         </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="flex items-center gap-2">
-            <Skeleton className="h-5 w-5 rounded-full" />
-            <Skeleton className="h-5 w-40" />
-          </div>
-          <div className="flex items-center gap-2">
-            <Skeleton className="h-5 w-5 rounded-full" />
-            <Skeleton className="h-5 w-40" />
-          </div>
-          <div className="flex flex-col sm:flex-row items-center gap-4 pt-4">
-            <Skeleton className="h-10 w-full" />
-            <Skeleton className="h-10 w-32" />
+        <CardContent>
+          <div className="flex items-center space-x-2">
+            <div className="w-4 h-4 border-2 border-muted border-t-foreground rounded-full animate-spin"></div>
+            <span className="text-muted-foreground">
+              Loading active rides...
+            </span>
           </div>
         </CardContent>
       </Card>
@@ -88,56 +85,61 @@ const ActiveRideManagement = () => {
 
   if (!activeRide) {
     return (
-      <div>
-        <Card className="bg-card max-w-7xl mx-auto border-border rounded-xl shadow-sm overflow-hidden">
-          <CardContent className="p-6 text-center">
-            <div className="bg-muted rounded-full p-4 inline-flex items-center justify-center mb-4">
-              <Navigation className="h-8 w-8 text-muted-foreground" />
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Navigation className="w-5 h-5" />
+            Active Ride
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="text-center py-8">
+            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-muted flex items-center justify-center">
+              <Navigation className="w-8 h-8 text-muted-foreground" />
             </div>
-            <h3 className="text-lg font-medium text-card-foreground mb-2">
-              No Active Rides
-            </h3>
             <p className="text-muted-foreground">
-              You don't have any active rides at the moment.
+              No active rides at the moment.
             </p>
-          </CardContent>
-        </Card>
-      </div>
+            <p className="text-muted-foreground text-sm mt-1">
+              Accept a ride request to get started
+            </p>
+          </div>
+        </CardContent>
+      </Card>
     );
   }
 
   return (
-    <Card className="bg-card border-border rounded-xl shadow-sm overflow-hidden transition-all duration-300 hover:shadow-md">
-      <CardHeader className="pb-3">
+    <Card>
+      <CardHeader>
         <div className="flex justify-between items-start">
-          <CardTitle className="text-xl font-semibold text-card-foreground">
+          <CardTitle className="flex items-center gap-2">
+            <Navigation className="w-5 h-5" />
             Active Ride with {activeRide.rider?.name || "Passenger"}
           </CardTitle>
           <Badge
-            className={`${
+            variant={
               statusOptions[activeRide.status as keyof typeof statusOptions]
-                ?.color
-            } text-white border-0`}
-          >
-            {
-              statusOptions[activeRide.status as keyof typeof statusOptions]
-                ?.label
+                ?.variant || "secondary"
             }
+          >
+            {statusOptions[activeRide.status as keyof typeof statusOptions]
+              ?.label || activeRide.status}
           </Badge>
         </div>
       </CardHeader>
-      <CardContent className="space-y-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="space-y-3">
+      <CardContent className="space-y-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="space-y-4">
             <div className="flex items-start gap-3">
-              <div className="bg-primary/10 p-2 rounded-full mt-0.5">
-                <MapPin className="h-4 w-4 text-primary" />
+              <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center mt-0.5">
+                <MapPin className="w-4 h-4" />
               </div>
               <div>
                 <p className="text-sm font-medium text-muted-foreground">
-                  From
+                  Pickup Location
                 </p>
-                <p className="font-medium text-card-foreground">
+                <p className="font-medium">
                   {activeRide.pickupLocation?.address ||
                     `(${activeRide.pickupLocation?.latitude ?? "N/A"}, ${
                       activeRide.pickupLocation?.longitude ?? "N/A"
@@ -147,12 +149,14 @@ const ActiveRideManagement = () => {
             </div>
 
             <div className="flex items-start gap-3">
-              <div className="bg-primary/10 p-2 rounded-full mt-0.5">
-                <MapPin className="h-4 w-4 text-primary" />
+              <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center mt-0.5">
+                <MapPin className="w-4 h-4" />
               </div>
               <div>
-                <p className="text-sm font-medium text-muted-foreground">To</p>
-                <p className="font-medium text-card-foreground">
+                <p className="text-sm font-medium text-muted-foreground">
+                  Drop-off Location
+                </p>
+                <p className="font-medium">
                   {activeRide.dropOffLocation?.address ||
                     `(${activeRide.dropOffLocation?.latitude ?? "N/A"}, ${
                       activeRide.dropOffLocation?.longitude ?? "N/A"
@@ -162,33 +166,31 @@ const ActiveRideManagement = () => {
             </div>
           </div>
 
-          <div className="space-y-3">
+          <div className="space-y-4">
             {activeRide.rider && (
               <div className="flex items-center gap-3">
-                <div className="bg-primary/10 p-2 rounded-full">
-                  <User className="h-4 w-4 text-primary" />
+                <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center">
+                  <User className="w-4 h-4" />
                 </div>
                 <div>
                   <p className="text-sm font-medium text-muted-foreground">
                     Rider
                   </p>
-                  <p className="font-medium text-card-foreground">
-                    {activeRide.rider.name}
-                  </p>
+                  <p className="font-medium">{activeRide.rider.name}</p>
                 </div>
               </div>
             )}
 
             {activeRide.scheduledAt && (
               <div className="flex items-center gap-3">
-                <div className="bg-primary/10 p-2 rounded-full">
-                  <Calendar className="h-4 w-4 text-primary" />
+                <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center">
+                  <Calendar className="w-4 h-4" />
                 </div>
                 <div>
                   <p className="text-sm font-medium text-muted-foreground">
                     Scheduled
                   </p>
-                  <p className="font-medium text-card-foreground">
+                  <p className="font-medium">
                     {new Date(activeRide.scheduledAt).toLocaleDateString()}
                   </p>
                 </div>
@@ -197,14 +199,14 @@ const ActiveRideManagement = () => {
 
             {activeRide.estimatedDuration && (
               <div className="flex items-center gap-3">
-                <div className="bg-primary/10 p-2 rounded-full">
-                  <Clock className="h-4 w-4 text-primary" />
+                <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center">
+                  <Clock className="w-4 h-4" />
                 </div>
                 <div>
                   <p className="text-sm font-medium text-muted-foreground">
                     Est. Duration
                   </p>
-                  <p className="font-medium text-card-foreground">
+                  <p className="font-medium">
                     {activeRide.estimatedDuration} mins
                   </p>
                 </div>
@@ -213,16 +215,22 @@ const ActiveRideManagement = () => {
           </div>
         </div>
 
-        <div className="pt-4 border-t border-border">
-          <div className="flex flex-col sm:flex-row items-center gap-3">
+        <div className="pt-4 border-t space-y-4">
+          <div>
+            <Label className="text-sm font-medium">Update Ride Status</Label>
+            <p className="text-sm text-muted-foreground">
+              Change the current status of this ride
+            </p>
+          </div>
+          <div className="flex flex-col sm:flex-row gap-3">
             <Select
               value={selectedStatus}
               onValueChange={(value) => setSelectedStatus(value as IRideStatus)}
             >
-              <SelectTrigger className="w-full bg-muted/50 border-border">
+              <SelectTrigger className="flex-1">
                 <SelectValue placeholder="Update status" />
               </SelectTrigger>
-              <SelectContent className="bg-background border-border">
+              <SelectContent>
                 {Object.entries(statusOptions).map(([status, { label }]) => (
                   <SelectItem key={status} value={status}>
                     {label}
@@ -233,7 +241,7 @@ const ActiveRideManagement = () => {
             <Button
               onClick={handleStatusUpdate}
               disabled={isLoading || selectedStatus === activeRide.status}
-              className="w-full sm:w-auto transition-all duration-200"
+              className="sm:w-auto"
             >
               {isLoading ? "Updating..." : "Update Status"}
             </Button>

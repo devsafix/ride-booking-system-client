@@ -11,7 +11,11 @@ import {
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { useUpdateAvailabilityMutation } from "@/redux/features/drive/drive.api";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Activity } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 
+// Availability Toggle Component
 const AvailabilityToggle = () => {
   const { data, isLoading: isMeLoading } = useGetMeQuery(undefined);
   const [updateAvailability, { isLoading: isUpdating }] =
@@ -42,34 +46,65 @@ const AvailabilityToggle = () => {
 
   if (isMeLoading || isAvailable === null) {
     return (
-      <div className="flex items-center space-x-2 p-4 border rounded-lg bg-slate-800 border-slate-700 text-slate-300">
-        Loading availability...
-      </div>
+      <Card>
+        <CardContent className="pt-6">
+          <div className="flex items-center space-x-2">
+            <div className="w-4 h-4 border-2 border-muted border-t-foreground rounded-full animate-spin"></div>
+            <span className="text-muted-foreground">
+              Loading availability...
+            </span>
+          </div>
+        </CardContent>
+      </Card>
     );
   }
 
   return (
-    <div className="flex flex-col items-start space-y-2 p-4 border rounded-lg bg-slate-800 border-slate-700">
-      <Label
-        htmlFor="availability-select"
-        className="text-white text-sm font-semibold"
-      >
-        Set Availability
-      </Label>
-      <Select
-        onValueChange={handleToggle}
-        value={isAvailable ? "online" : "offline"}
-        disabled={isUpdating}
-      >
-        <SelectTrigger className="w-[180px] text-slate-300 bg-slate-700 border-slate-600">
-          <SelectValue placeholder="Select status" />
-        </SelectTrigger>
-        <SelectContent className="bg-slate-800 text-slate-300 border-slate-700">
-          <SelectItem value="online">Online</SelectItem>
-          <SelectItem value="offline">Offline</SelectItem>
-        </SelectContent>
-      </Select>
-    </div>
+    <Card>
+      <CardHeader className="pb-4">
+        <CardTitle className="flex items-center gap-2">
+          <Activity className="w-5 h-5" />
+          Driver Status
+        </CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div className="space-y-4">
+          <div className="flex items-center justify-between">
+            <div className="space-y-1">
+              <Label
+                htmlFor="availability-select"
+                className="text-sm font-medium"
+              >
+                Current Status
+              </Label>
+              <p className="text-sm text-muted-foreground">
+                Set yourself {isAvailable ? "online" : "offline"} to receive
+                ride requests
+              </p>
+            </div>
+            <Badge
+              variant={isAvailable ? "default" : "secondary"}
+              className="ml-4"
+            >
+              {isAvailable ? "Online" : "Offline"}
+            </Badge>
+          </div>
+          <Select
+            onValueChange={handleToggle}
+            value={isAvailable ? "online" : "offline"}
+            disabled={isUpdating}
+          >
+            <SelectTrigger id="availability-select">
+              <SelectValue placeholder="Select status" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="online">Go Online</SelectItem>
+              <SelectItem value="offline">Go Offline</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+      </CardContent>
+    </Card>
   );
 };
 

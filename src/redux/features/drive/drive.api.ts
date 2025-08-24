@@ -55,6 +55,14 @@ export const driverAndRideApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["RIDER"],
     }),
+    // Cancel a specific ride request
+    cancelRide: builder.mutation<any, string>({
+      query: (rideId) => ({
+        url: `/rides/cancel/${rideId}`,
+        method: "PATCH",
+      }),
+      invalidatesTags: ["RIDER"],
+    }),
     // Updates the status of an ongoing ride
     updateRideStatus: builder.mutation<
       any,
@@ -89,4 +97,5 @@ export const {
   useUpdateRideStatusMutation,
   useGetMyRidesQuery,
   useGetAcceptedRidesQuery,
+  useCancelRideMutation,
 } = driverAndRideApi;
