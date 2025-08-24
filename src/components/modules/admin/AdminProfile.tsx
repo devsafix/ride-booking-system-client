@@ -15,7 +15,6 @@ export const AdminProfile = () => {
   const { data, isLoading: isProfileLoading } = useGetMeQuery(undefined);
   const [formData, setFormData] = useState({
     name: "",
-    email: "",
     contactNo: "",
   });
   const [updateProfile, { isLoading }] = useUpdateUserProfileMutation();
@@ -24,7 +23,6 @@ export const AdminProfile = () => {
     if (data?.data) {
       setFormData({
         name: data.data.name || "",
-        email: data.data.email || "",
         contactNo: data.data.contactNo || "",
       });
     }
@@ -89,21 +87,6 @@ export const AdminProfile = () => {
                   onChange={handleChange}
                   placeholder="Enter your full name"
                 />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="email">Email Address</Label>
-                <Input
-                  id="email"
-                  name="email"
-                  type="email"
-                  value={formData.email}
-                  disabled
-                  className="bg-muted"
-                />
-                <p className="text-xs text-muted-foreground">
-                  Email cannot be changed
-                </p>
               </div>
 
               <div className="space-y-2">

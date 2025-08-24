@@ -115,131 +115,138 @@ export default function RideHistory() {
   }
 
   return (
-    <div className="p-6 space-y-6">
-      <h2 className="text-3xl font-bold">Ride History</h2>
+    <div>
+      <div className="space-y-6 max-w-7xl mx-auto">
+        <h2 className="text-3xl font-bold">Ride History</h2>
 
-      {/* Filters Section */}
-      <div className="bg-gray-50 p-4 rounded-lg shadow-sm">
-        <div className="flex items-center gap-2 mb-4">
-          <Filter className="text-gray-500" />
-          <h3 className="font-semibold text-lg">Filters</h3>
+        {/* Filters Section */}
+        <div className="bg-muted/40 p-4 rounded-lg shadow-sm">
+          <div className="flex items-center gap-2 mb-4">
+            <Filter className="text-gray-500" />
+            <h3 className="font-semibold text-lg">Filters</h3>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {/* Status Filter */}
+            <div>
+              <Label className="mb-2" htmlFor="status">
+                Status
+              </Label>
+              <Select
+                onValueChange={(value) => handleFilterChange("status", value)}
+                value={filters.status}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Select Status" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All</SelectItem>
+                  <SelectItem value="requested">Requested</SelectItem>
+                  <SelectItem value="accepted">Accepted</SelectItem>
+                  <SelectItem value="completed">Completed</SelectItem>
+                  <SelectItem value="cancelled">Cancelled</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            {/* Fare Range Filter */}
+            <div className="flex gap-2">
+              <div>
+                <Label className="mb-2" htmlFor="minFare">
+                  Min Fare
+                </Label>
+                <Input
+                  type="number"
+                  id="minFare"
+                  value={filters.minFare}
+                  onChange={(e) =>
+                    handleFilterChange("minFare", e.target.value)
+                  }
+                  placeholder="Min"
+                />
+              </div>
+              <div>
+                <Label className="mb-2" htmlFor="maxFare">
+                  Max Fare
+                </Label>
+                <Input
+                  type="number"
+                  id="maxFare"
+                  value={filters.maxFare}
+                  onChange={(e) =>
+                    handleFilterChange("maxFare", e.target.value)
+                  }
+                  placeholder="Max"
+                />
+              </div>
+            </div>
+
+            {/* Date Range Filter */}
+            <div className="flex md:flex-row flex-col gap-2">
+              <div>
+                <Label className="mb-2" htmlFor="startDate">
+                  Start Date
+                </Label>
+                <Input
+                  type="date"
+                  id="startDate"
+                  value={filters.startDate}
+                  onChange={(e) =>
+                    handleFilterChange("startDate", e.target.value)
+                  }
+                />
+              </div>
+              <div>
+                <Label className="mb-2" htmlFor="endDate">
+                  End Date
+                </Label>
+                <Input
+                  type="date"
+                  id="endDate"
+                  value={filters.endDate}
+                  onChange={(e) =>
+                    handleFilterChange("endDate", e.target.value)
+                  }
+                />
+              </div>
+            </div>
+
+            {/* Clear Filters Button */}
+            <div className="self-end">
+              <Button
+                onClick={handleClearFilters}
+                variant="outline"
+                className="w-full"
+              >
+                Clear Filters
+              </Button>
+            </div>
+          </div>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          {/* Status Filter */}
-          <div>
-            <Label className="mb-2" htmlFor="status">
-              Status
-            </Label>
-            <Select
-              onValueChange={(value) => handleFilterChange("status", value)}
-              value={filters.status}
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="Select Status" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All</SelectItem>
-                <SelectItem value="requested">Requested</SelectItem>
-                <SelectItem value="accepted">Accepted</SelectItem>
-                <SelectItem value="completed">Completed</SelectItem>
-                <SelectItem value="cancelled">Cancelled</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
 
-          {/* Fare Range Filter */}
-          <div className="flex gap-2">
-            <div>
-              <Label className="mb-2" htmlFor="minFare">
-                Min Fare
-              </Label>
-              <Input
-                type="number"
-                id="minFare"
-                value={filters.minFare}
-                onChange={(e) => handleFilterChange("minFare", e.target.value)}
-                placeholder="Min"
-              />
-            </div>
-            <div>
-              <Label className="mb-2" htmlFor="maxFare">
-                Max Fare
-              </Label>
-              <Input
-                type="number"
-                id="maxFare"
-                value={filters.maxFare}
-                onChange={(e) => handleFilterChange("maxFare", e.target.value)}
-                placeholder="Max"
-              />
-            </div>
-          </div>
-
-          {/* Date Range Filter */}
-          <div className="flex md:flex-row flex-col gap-2">
-            <div>
-              <Label className="mb-2" htmlFor="startDate">
-                Start Date
-              </Label>
-              <Input
-                type="date"
-                id="startDate"
-                value={filters.startDate}
-                onChange={(e) =>
-                  handleFilterChange("startDate", e.target.value)
-                }
-              />
-            </div>
-            <div>
-              <Label className="mb-2" htmlFor="endDate">
-                End Date
-              </Label>
-              <Input
-                type="date"
-                id="endDate"
-                value={filters.endDate}
-                onChange={(e) => handleFilterChange("endDate", e.target.value)}
-              />
-            </div>
-          </div>
-
-          {/* Clear Filters Button */}
-          <div className="self-end">
-            <Button
-              onClick={handleClearFilters}
-              variant="outline"
-              className="w-full"
-            >
-              Clear Filters
-            </Button>
-          </div>
-        </div>
-      </div>
-
-      {/* Ride History Table */}
-      <div className="overflow-x-auto rounded-lg border">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Ride ID</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Fare</TableHead>
-              <TableHead>Pickup Location</TableHead>
-              <TableHead>Drop-off Location</TableHead>
-              <TableHead>Date</TableHead>
-              <TableHead>Details</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {rides.length > 0 ? (
-              rides.map((ride: Ride) => (
-                <TableRow key={ride._id}>
-                  <TableCell className="font-medium">
-                    {ride._id.slice(0, 8)}...
-                  </TableCell>
-                  <TableCell>
-                    <span
-                      className={`px-2 py-1 rounded-full text-xs font-semibold
+        {/* Ride History Table */}
+        <div className="overflow-x-auto rounded-lg border">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Ride ID</TableHead>
+                <TableHead>Status</TableHead>
+                <TableHead>Fare</TableHead>
+                <TableHead>Pickup Location</TableHead>
+                <TableHead>Drop-off Location</TableHead>
+                <TableHead>Date</TableHead>
+                <TableHead>Details</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {rides.length > 0 ? (
+                rides.map((ride: Ride) => (
+                  <TableRow key={ride._id}>
+                    <TableCell className="font-medium">
+                      {ride._id.slice(0, 8)}...
+                    </TableCell>
+                    <TableCell>
+                      <span
+                        className={`px-2 py-1 rounded-full text-xs font-semibold
                       ${
                         ride.status === "completed"
                           ? "bg-green-100 text-green-800"
@@ -247,85 +254,88 @@ export default function RideHistory() {
                           ? "bg-red-100 text-red-800"
                           : "bg-blue-100 text-blue-800"
                       }`}
-                    >
-                      {ride.status.charAt(0).toUpperCase() +
-                        ride.status.slice(1)}
-                    </span>
-                  </TableCell>
-                  <TableCell>{ride.fare.toFixed(2)} TK</TableCell>
-                  <TableCell>
-                    {ride.pickupLocation.latitude},{" "}
-                    {ride.pickupLocation.longitude}
-                  </TableCell>
-                  <TableCell>
-                    {ride.dropOffLocation.latitude},{" "}
-                    {ride.dropOffLocation.longitude}
-                  </TableCell>
-                  <TableCell>
-                    {new Date(ride.createdAt).toLocaleString()}
-                  </TableCell>
-                  <TableCell>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => handleViewDetails(ride._id)}
-                    >
-                      <Eye className="text-gray-500" />
-                    </Button>
+                      >
+                        {ride.status.charAt(0).toUpperCase() +
+                          ride.status.slice(1)}
+                      </span>
+                    </TableCell>
+                    <TableCell>{ride.fare.toFixed(2)} TK</TableCell>
+                    <TableCell>
+                      {ride.pickupLocation.latitude},{" "}
+                      {ride.pickupLocation.longitude}
+                    </TableCell>
+                    <TableCell>
+                      {ride.dropOffLocation.latitude},{" "}
+                      {ride.dropOffLocation.longitude}
+                    </TableCell>
+                    <TableCell>
+                      {new Date(ride.createdAt).toLocaleString()}
+                    </TableCell>
+                    <TableCell>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => handleViewDetails(ride._id)}
+                      >
+                        <Eye className="text-gray-500" />
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell
+                    colSpan={6}
+                    className="text-center py-8 text-gray-500"
+                  >
+                    No rides found.
                   </TableCell>
                 </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell
-                  colSpan={6}
-                  className="text-center py-8 text-gray-500"
-                >
-                  No rides found.
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
-      </div>
+              )}
+            </TableBody>
+          </Table>
+        </div>
 
-      {/* Pagination */}
-      {totalPages > 1 && (
-        <Pagination>
-          <PaginationContent>
-            <PaginationItem>
-              <PaginationPrevious
-                onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))}
-                className={
-                  currentPage === 1 ? "pointer-events-none opacity-50" : ""
-                }
-              />
-            </PaginationItem>
-            {[...Array(totalPages)].map((_, index) => (
-              <PaginationItem key={index}>
-                <PaginationLink
-                  onClick={() => setCurrentPage(index + 1)}
-                  isActive={currentPage === index + 1}
-                >
-                  {index + 1}
-                </PaginationLink>
+        {/* Pagination */}
+        {totalPages > 1 && (
+          <Pagination>
+            <PaginationContent>
+              <PaginationItem>
+                <PaginationPrevious
+                  onClick={() =>
+                    setCurrentPage((prev) => Math.max(1, prev - 1))
+                  }
+                  className={
+                    currentPage === 1 ? "pointer-events-none opacity-50" : ""
+                  }
+                />
               </PaginationItem>
-            ))}
-            <PaginationItem>
-              <PaginationNext
-                onClick={() =>
-                  setCurrentPage((prev) => Math.min(totalPages, prev + 1))
-                }
-                className={
-                  currentPage === totalPages
-                    ? "pointer-events-none opacity-50"
-                    : ""
-                }
-              />
-            </PaginationItem>
-          </PaginationContent>
-        </Pagination>
-      )}
+              {[...Array(totalPages)].map((_, index) => (
+                <PaginationItem key={index}>
+                  <PaginationLink
+                    onClick={() => setCurrentPage(index + 1)}
+                    isActive={currentPage === index + 1}
+                  >
+                    {index + 1}
+                  </PaginationLink>
+                </PaginationItem>
+              ))}
+              <PaginationItem>
+                <PaginationNext
+                  onClick={() =>
+                    setCurrentPage((prev) => Math.min(totalPages, prev + 1))
+                  }
+                  className={
+                    currentPage === totalPages
+                      ? "pointer-events-none opacity-50"
+                      : ""
+                  }
+                />
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
+        )}
+      </div>
     </div>
   );
 }

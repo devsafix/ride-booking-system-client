@@ -22,7 +22,7 @@ const HeroBanner: React.FC = () => {
     switch (role) {
       case "admin":
         return {
-          title: "Admin Dashboard Is Here",
+          title: "Admin Dashboard",
           subtitle:
             "Manage your ride booking platform with comprehensive analytics and user management tools",
           cta: "Go to Dashboard",
@@ -35,7 +35,7 @@ const HeroBanner: React.FC = () => {
 
       case "driver":
         return {
-          title: "Drive & Earn",
+          title: "Safe Drive & Earn",
           subtitle:
             "Start earning today with flexible driving opportunities. Your schedule, your income.",
           cta: "Start Driving",
