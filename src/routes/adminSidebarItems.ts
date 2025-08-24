@@ -1,4 +1,4 @@
-import Home from "@/pages/Home";
+import UserManagement from "@/pages/admin/UserManagement";
 import Profile from "@/pages/Profile";
 import type { ISidebarItem } from "@/types";
 
@@ -17,9 +17,9 @@ export const adminSidebarItems: ISidebarItem[] = [
     title: "Admin Management",
     items: [
       {
-        title: "Analytics",
-        url: "/admin/analytics",
-        component: Home,
+        title: "User Management",
+        url: "/admin/user-management",
+        component: UserManagement,
       },
     ],
   },

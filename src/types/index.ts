@@ -33,3 +33,17 @@ export type IRideStatus =
   | "cancelled"
   | "rejected"
   | "no_driver_found";
+
+export interface IUser {
+  _id: string;
+  name: string;
+  email: string;
+  role: TRole;
+  contactNo?: string;
+  vehicleType?: string;
+  isBlocked: boolean;
+  isApproved?: boolean;
+  isAvailable?: boolean;
+  averageRating?: number;
+  totalRatings?: number;
+}
