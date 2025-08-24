@@ -15,7 +15,7 @@ import { Link } from "react-router";
 import { getSidebarItems } from "@/utils/getSidebarItems";
 import { useGetMeQuery } from "@/redux/features/auth/auth.api";
 import Logo from "@/assets/icons/logo";
-import { User, ChevronRight } from "lucide-react";
+import { User, ChevronRight, ArrowLeft } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
@@ -38,7 +38,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             <Logo />
           </div>
         </Link>
-        <Link to="/" className="text-center mt-3 shadow-lg">
+        <Link to="/" className="text-center mt-3 border border-foreground flex items-center gap-2 justify-center">
+          <ArrowLeft className="h-5 w-5" />
           <h2 className="text-sm font-bold text-foreground tracking-wide">
             BACK HOME
           </h2>

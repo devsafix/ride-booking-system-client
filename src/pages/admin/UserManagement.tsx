@@ -9,7 +9,6 @@ import {
   Shield,
   Car,
   User,
-  Eye,
   UserX,
   UserCheck,
   Clock,
@@ -413,11 +412,6 @@ const UserManagement = () => {
                               </Button>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent align="end" className="w-48">
-                              <DropdownMenuItem className="flex items-center space-x-2 cursor-pointer">
-                                <Eye className="h-4 w-4" />
-                                <span>View Details</span>
-                              </DropdownMenuItem>
-
                               {user.role !== "admin" && (
                                 <>
                                   <DropdownMenuSeparator />
