@@ -29,7 +29,13 @@ import userIcon from "../../assets/images/user-icon.webp";
 import { ModeToggle } from "./ModeToggler";
 import { baseApi } from "@/redux/baseApi";
 
-const navLinks = {
+interface NavLink {
+  href: string;
+  label: string;
+  id?: string;
+}
+
+const navLinks: Record<string, NavLink[]> = {
   unauthenticated: [
     { href: "/", label: "Home" },
     { href: "/about", label: "About" },
@@ -107,7 +113,7 @@ export default function Navbar() {
                   <NavigationMenuLink asChild>
                     <Link
                       to={link.href}
-                      id={link.id}
+                      id={link.id ?? undefined}
                       className={cn(
                         "hover:text-primary py-1.5 font-medium",
                         "text-sm"

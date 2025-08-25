@@ -14,14 +14,14 @@ import { Link, useNavigate } from "react-router";
 import { useGetMeQuery } from "@/redux/features/auth/auth.api";
 import Loader from "@/assets/icons/loader/Loader";
 
-import { driver } from "driver.js";
+import { driver, type Driver } from "driver.js";
 import "driver.js/dist/driver.css";
 
 const HeroBanner: React.FC = () => {
   const { data: user, isLoading } = useGetMeQuery(undefined);
   const navigate = useNavigate();
 
-  const driverObj = useRef(null);
+  const driverObj = useRef<Driver | null>(null);
 
   useEffect(() => {
     // Check if the user is not authenticated and has not seen the tour before
