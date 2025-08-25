@@ -30,7 +30,9 @@ const statusOptions = {
 
 // Active Ride Management Component
 const ActiveRideManagement = () => {
-  const { data, isLoading: isFetching } = useGetActiveRidesQuery(undefined);
+  const { data, isLoading: isFetching } = useGetActiveRidesQuery(undefined, {
+    pollingInterval: 5000,
+  });
   const [updateRideStatus, { isLoading }] = useUpdateRideStatusMutation();
 
   const [activeRide, setActiveRide] = useState<any | null>(null);

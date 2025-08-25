@@ -30,15 +30,15 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     <Sidebar {...props} className="bg-background border-r border-border">
       {/* Elegant Header with Logo */}
       <SidebarHeader className="border-b border-border p-6">
-        <Link
-          to="/"
-          className="flex items-center justify-center group transition-all duration-300"
-        >
-          <div className="relative p-3 rounded-2xl group-hover:shadow-lg transition-all duration-300">
+        <Link to="/" className="flex items-center justify-center">
+          <div className="relative p-3 rounded-2xl">
             <Logo />
           </div>
         </Link>
-        <Link to="/" className="text-center mt-3 border border-foreground flex items-center gap-2 justify-center">
+        <Link
+          to="/"
+          className="text-center mt-3 border border-foreground flex items-center gap-2 justify-center"
+        >
           <ArrowLeft className="h-5 w-5" />
           <h2 className="text-sm font-bold text-foreground tracking-wide">
             BACK HOME

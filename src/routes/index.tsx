@@ -17,6 +17,7 @@ import Features from "@/pages/Features";
 import Faq from "@/pages/Faq";
 import Contact from "@/pages/Contact";
 import { lazy } from "react";
+import SafetySettings from "@/pages/SafetySettings";
 
 const RideDetails = lazy(() => import("@/pages/rider/RideDetails"));
 
@@ -56,6 +57,10 @@ export const router = createBrowserRouter([
       {
         path: "contact",
         Component: Contact,
+      },
+      {
+        path: "safety-settings",
+        Component: SafetySettings,
       },
     ],
   },

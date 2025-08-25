@@ -160,8 +160,9 @@ export default function RideHistory() {
                   <SelectItem value="all">All</SelectItem>
                   <SelectItem value="requested">Requested</SelectItem>
                   <SelectItem value="accepted">Accepted</SelectItem>
-                  <SelectItem value="completed">Completed</SelectItem>
+                  <SelectItem value="rejected">Rejected</SelectItem>
                   <SelectItem value="cancelled">Cancelled</SelectItem>
+                  <SelectItem value="completed">Completed</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -253,7 +254,7 @@ export default function RideHistory() {
                 <TableHead>Drop-off Location</TableHead>
                 <TableHead>Date</TableHead>
                 <TableHead>Details</TableHead>
-                <TableHead>Action</TableHead>
+                <TableHead>Cancel Ride</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -300,12 +301,16 @@ export default function RideHistory() {
                       </Button>
                     </TableCell>
                     <TableCell>
-                      <Button
-                        onClick={() => handleCancel(ride._id)}
-                        className="cursor-pointer"
-                      >
-                        Cancel
-                      </Button>
+                      {ride?.status === "requested" ? (
+                        <Button
+                          onClick={() => handleCancel(ride._id)}
+                          className="cursor-pointer"
+                        >
+                          Cancel
+                        </Button>
+                      ) : (
+                        <Button disabled>Cancel</Button>
+                      )}
                     </TableCell>
                   </TableRow>
                 ))

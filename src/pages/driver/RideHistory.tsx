@@ -210,7 +210,7 @@ const RideHistory = () => {
                           </Badge>
                         </TableCell>
                         <TableCell className="text-right font-semibold">
-                          ${ride.fare?.toFixed(2) || "0.00"}
+                          {ride.fare?.toFixed(2) || "0.00"} TK
                         </TableCell>
                       </TableRow>
                     ))
