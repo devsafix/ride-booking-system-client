@@ -1,4 +1,5 @@
-import React from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React, { useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import {
   ArrowRight,
@@ -13,9 +14,86 @@ import { Link, useNavigate } from "react-router";
 import { useGetMeQuery } from "@/redux/features/auth/auth.api";
 import Loader from "@/assets/icons/loader/Loader";
 
+import { driver } from "driver.js";
+import "driver.js/dist/driver.css";
+
 const HeroBanner: React.FC = () => {
   const { data: user, isLoading } = useGetMeQuery(undefined);
   const navigate = useNavigate();
+
+  const driverObj = useRef(null);
+
+  useEffect(() => {
+    // Check if the user is not authenticated and has not seen the tour before
+    const hasSeenTour = localStorage.getItem("hasSeenTour");
+    if (!user && !hasSeenTour) {
+      // Initialize the driver instance only once
+      if (!driverObj.current) {
+        driverObj.current = driver({
+          showProgress: true,
+          steps: [
+            {
+              element: "#get-started-button",
+              popover: {
+                title: "Get Started Here",
+                description:
+                  "Click here to login or create a new account and begin your journey.",
+                side: "bottom",
+                align: "center",
+              },
+            },
+
+            {
+              element: "#features-link",
+              popover: {
+                title: "Learn More About Our Features",
+                description: "Explore what makes our platform great.",
+                side: "right",
+                align: "center",
+              },
+            },
+            {
+              element: "#faq-link",
+              popover: {
+                title: "Have Questions?",
+                description: "Find answers to frequently asked questions.",
+                side: "right",
+                align: "center",
+              },
+            },
+            {
+              element: "#theme-toggler",
+              popover: {
+                title: "Toggle Dark/Light Mode",
+                description:
+                  "Change the website's theme for a better viewing experience.",
+                side: "left",
+                align: "center",
+              },
+            },
+            {
+              element: "#contact-link",
+              popover: {
+                title: "Contact With Us",
+                description:
+                  "Change the website's theme for a better viewing experience.",
+                side: "left",
+                align: "center",
+              },
+            },
+          ],
+        });
+      }
+
+      setTimeout(() => {
+        if (driverObj.current) {
+          (driverObj.current as any).drive();
+
+          localStorage.setItem("hasSeenTour", "true");
+        }
+      }, 500);
+    }
+  }, [user]);
 
   const getContent = () => {
     const role = user?.data.role;
@@ -140,6 +218,7 @@ const HeroBanner: React.FC = () => {
                 <Link to={"/login"}>
                   <Button
                     variant="outline"
+                    id="get-started-button"
                     size="lg"
                     className="px-8 py-3 rounded-xl font-semibold border border-black"
                   >

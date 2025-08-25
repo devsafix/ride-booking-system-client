@@ -1,3 +1,4 @@
+import Loader from "@/assets/icons/loader/Loader";
 import SOSButton from "@/components/SOSButton";
 import { useGetMeQuery } from "@/redux/features/auth/auth.api";
 import { useGetActiveRidesQuery } from "@/redux/features/drive/drive.api";
@@ -9,16 +10,14 @@ export default function GlobalSOS() {
   });
 
   // if no user or no active ride -> don't show
-  if (!me?.data || !activeRideData?.data) return null;
+  if (!me?.data || !activeRideData?.data) return <Loader />;
 
-  console.log(activeRideData.data[0].status);
-
-  const rideStatus = activeRideData.data[0].status;
+  const rideStatus = activeRideData?.data[0]?.status;
 
   return (
     <SOSButton
       rideStatus={rideStatus}
-      emergencyContacts={me.data.emergencyContacts || []}
+      emergencyContacts={me?.data?.emergencyContacts || []}
     />
   );
 }

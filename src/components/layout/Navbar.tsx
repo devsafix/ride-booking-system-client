@@ -33,9 +33,9 @@ const navLinks = {
   unauthenticated: [
     { href: "/", label: "Home" },
     { href: "/about", label: "About" },
-    { href: "/features", label: "Features" },
-    { href: "/faq", label: "FAQ" },
-    { href: "/contact", label: "Contact" },
+    { href: "/features", label: "Features", id: "features-link" },
+    { href: "/faq", label: "FAQ", id: "faq-link" },
+    { href: "/contact", label: "Contact", id: "contact-link" },
   ],
   rider: [
     { href: "/", label: "Home" },
@@ -101,6 +101,7 @@ export default function Navbar() {
                   <NavigationMenuLink asChild>
                     <Link
                       to={link.href}
+                      id={link.id}
                       className={cn(
                         "hover:text-primary py-1.5 font-medium",
                         "text-sm"
@@ -117,7 +118,7 @@ export default function Navbar() {
 
         {/* Right side: Auth buttons or User dropdown */}
         <div className="flex items-center gap-2">
-          <ModeToggle />
+          <ModeToggle id="theme-toggler" />
           {user ? (
             // If user is logged in, show a dropdown menu
             <DropdownMenu>
