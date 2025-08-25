@@ -1,4 +1,3 @@
-import Loader from "@/assets/icons/loader/Loader";
 import SOSButton from "@/components/SOSButton";
 import { useGetMeQuery } from "@/redux/features/auth/auth.api";
 import { useGetActiveRidesQuery } from "@/redux/features/drive/drive.api";
@@ -9,10 +8,17 @@ export default function GlobalSOS() {
     pollingInterval: 10000,
   });
 
-  // if no user or no active ride -> don't show
-  if (!me?.data || !activeRideData?.data) return <Loader />;
+  if (!me?.data || !activeRideData?.data) return null;
 
-  const rideStatus = activeRideData?.data[0]?.status;
+  const userId = me.data._id;
+  const activeRide = activeRideData.data[0];
+  const rideStatus = activeRide?.status;
+
+  // Check if logged-in user is either the rider or driver
+  const isAuthorized =
+    activeRide?.rider === userId || activeRide?.driver === userId;
+
+  if (!isAuthorized) return null;
 
   return (
     <SOSButton

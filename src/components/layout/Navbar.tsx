@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Link } from "react-router";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { toast } from "react-hot-toast";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -19,11 +19,11 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-import { useLogoutUserMutation } from "@/redux/features/auth/auth.api";
 import {
-  logout as logoutAction,
-  selectCurrentUser,
-} from "@/redux/features/auth/auth.slice";
+  useGetMeQuery,
+  useLogoutUserMutation,
+} from "@/redux/features/auth/auth.api";
+import { logout as logoutAction } from "@/redux/features/auth/auth.slice";
 import Logo from "@/assets/icons/logo";
 import userIcon from "../../assets/images/user-icon.webp";
 import { ModeToggle } from "./ModeToggler";
@@ -43,6 +43,7 @@ const navLinks = {
     { href: "/features", label: "Features" },
     { href: "/faq", label: "FAQ" },
     { href: "/contact", label: "Contact" },
+    { href: "/rider/ride-history", label: "Ride History" },
     { href: "/rider/ride-request", label: "Dashboard" },
   ],
   driver: [
@@ -51,7 +52,8 @@ const navLinks = {
     { href: "/features", label: "Features" },
     { href: "/faq", label: "FAQ" },
     { href: "/contact", label: "Contact" },
-    { href: "/driver", label: "Dashboard" },
+    { href: "/driver/manage-rides", label: "Manage Rides" },
+    { href: "/driver/ride-history", label: "Dashboard" },
   ],
   admin: [
     { href: "/", label: "Home" },
@@ -59,14 +61,18 @@ const navLinks = {
     { href: "/features", label: "Features" },
     { href: "/faq", label: "FAQ" },
     { href: "/contact", label: "Contact" },
+    { href: "/admin/ride-oversight", label: "Ride Oversight" },
     { href: "/admin/analytics", label: "Dashboard" },
   ],
 };
 
 export default function Navbar() {
   const dispatch = useDispatch();
-  const user = useSelector(selectCurrentUser);
   const [logoutUser] = useLogoutUserMutation();
+
+  const { data: getUser } = useGetMeQuery(undefined);
+
+  const user = getUser?.data;
 
   const handleLogout = async () => {
     try {

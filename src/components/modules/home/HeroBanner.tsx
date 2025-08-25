@@ -158,9 +158,9 @@ const HeroBanner: React.FC = () => {
     const role = user?.data.role;
 
     if (role === "admin") {
-      navigate("/admin/profile");
+      navigate("/admin/analytics");
     } else if (role === "driver") {
-      navigate("/driver/profile");
+      navigate("/driver/manage-rides");
     } else if (role === "rider") {
       navigate("/rider/ride-request");
     } else {
@@ -177,9 +177,9 @@ const HeroBanner: React.FC = () => {
       <div className="max-w-6xl w-full">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
-          <div className="text-center lg:text-left space-y-10">
+          <div className="text-center lg:text-left space-y-4 xl:space-y-6">
             {/* Title */}
-            <h1 className="text-4xl md:text-6xl font-extrabold leading-tight tracking-tight">
+            <h1 className="text-5xl md:text-6xl font-extrabold leading-tight tracking-tight">
               {content.title}
             </h1>
 
@@ -189,14 +189,14 @@ const HeroBanner: React.FC = () => {
             </p>
 
             {/* Features */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3 gap-6 mt-8">
+            <div className="grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-6 mt-8">
               {content.features.map((feature, index) => (
                 <div
                   key={index}
-                  className="flex flex-col lg:flex-row xl:flex-col items-center lg:items-start xl:items-center space-y-2 lg:space-y-0 lg:space-x-3 xl:space-x-0 xl:space-y-2 p-3 rounded-xl border border-gray-800 hover:border-gray-600 transition"
+                  className="flex flex-col xl:flex-col items-center xl:items-center space-y-2 lg:space-y-0 lg:space-x-3 xl:space-x-0 xl:space-y-2 p-3 rounded-xl border border-gray-800 hover:border-gray-600 transition"
                 >
                   <feature.icon className="h-6 w-6" />
-                  <span className="text-sm font-medium dark:text-muted-foreground">
+                  <span className="text-xs md:text-sm font-medium dark:text-muted-foreground">
                     {feature.text}
                   </span>
                 </div>
@@ -204,7 +204,7 @@ const HeroBanner: React.FC = () => {
             </div>
 
             {/* CTA */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center mt-8">
+            <div className="flex gap-4 justify-center lg:justify-start items-center md:mt-8 mt-12">
               <Button
                 size="lg"
                 onClick={handleCTAClick}
@@ -222,7 +222,7 @@ const HeroBanner: React.FC = () => {
                     size="lg"
                     className="px-8 py-3 rounded-xl font-semibold border border-black"
                   >
-                    Sign In
+                    Login Now
                   </Button>
                 </Link>
               )}

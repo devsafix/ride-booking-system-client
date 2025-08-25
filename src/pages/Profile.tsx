@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { RiderProfile } from "@/components/modules/rider/RiderProfile";
 import { DriverProfile } from "@/components/modules/driver/DriverProfile";
 import { AdminProfile } from "@/components/modules/admin/AdminProfile";
+import Loader from "@/assets/icons/loader/Loader";
 
 export const ChangePasswordForm = () => {
   const [passwords, setPasswords] = useState({
@@ -88,14 +89,7 @@ const Profile = () => {
   const { data, isLoading } = useGetMeQuery(undefined);
 
   if (isLoading) {
-    return (
-      <div className="flex justify-center items-center min-h-screen">
-        <div className="flex flex-col items-center space-y-4">
-          <div className="w-8 h-8 border-2 border-muted border-t-foreground rounded-full animate-spin"></div>
-          <p className="text-muted-foreground">Loading...</p>
-        </div>
-      </div>
-    );
+    <Loader />;
   }
 
   if (!data) {

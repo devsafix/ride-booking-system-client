@@ -58,6 +58,18 @@ const RideRequestForm = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Validation: Check if all coordinates are filled
+    if (
+      formData.pickupLocation.latitude === 0 ||
+      formData.pickupLocation.longitude === 0 ||
+      formData.dropOffLocation.latitude === 0 ||
+      formData.dropOffLocation.longitude === 0
+    ) {
+      toast.error("Please fill all location fields before requesting a ride.");
+      return;
+    }
+
     try {
       const res = await requestRide(formData).unwrap();
       toast.success(res.message || "Ride requested successfully!");

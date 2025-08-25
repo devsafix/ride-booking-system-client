@@ -1,6 +1,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Smartphone, Car, BarChart3 } from "lucide-react";
+import { Link } from "react-router";
 
 const CallToAction: React.FC = () => {
   return (
@@ -29,15 +30,12 @@ const CallToAction: React.FC = () => {
                 Book rides instantly, track in real-time, and enjoy safe,
                 comfortable journeys.
               </p>
-              <Button
-                className="w-full bg-primary hover:bg-primary/90"
-                onClick={() =>
-                  (window.location.href = "/auth/register?role=rider")
-                }
-              >
-                Start Riding
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
+              <Link to={"/register"}>
+                <Button className="w-full bg-primary hover:bg-primary/90">
+                  Start Riding
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
             </div>
 
             {/* For Drivers */}
@@ -50,15 +48,12 @@ const CallToAction: React.FC = () => {
                 Earn money on your schedule with flexible driving opportunities
                 and fair compensation.
               </p>
-              <Button
-                className="w-full bg-primary hover:bg-primary/90"
-                onClick={() =>
-                  (window.location.href = "/auth/register?role=driver")
-                }
-              >
-                Start Earning
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
+              <Link to={"/register"}>
+                <Button className="w-full bg-primary hover:bg-primary/90">
+                  Start Earning
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
             </div>
 
             {/* For Business */}
@@ -71,14 +66,12 @@ const CallToAction: React.FC = () => {
                 Manage corporate travel with dedicated admin tools and
                 comprehensive analytics.
               </p>
-              <Button
-                variant="outline"
-                className="w-full"
-                onClick={() => (window.location.href = "/contact")}
-              >
-                Contact Sales
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
+              <Link to={"/contact"}>
+                <Button variant="outline" className="w-full">
+                  Contact Sales
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
             </div>
           </div>
 
@@ -93,23 +86,21 @@ const CallToAction: React.FC = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Button
-                size="lg"
-                className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3"
-                onClick={() => (window.location.href = "/auth/register")}
-              >
-                Get Started Now
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
+              <Link to={"/register"}>
+                <Button
+                  size="lg"
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3"
+                >
+                  Get Started Now
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
 
-              <Button
-                variant="outline"
-                size="lg"
-                className="px-8 py-3"
-                onClick={() => (window.location.href = "/auth/login")}
-              >
-                Sign In
-              </Button>
+              <Link to={"/login"}>
+                <Button variant="outline" size="lg" className="px-8 py-3">
+                  Sign In
+                </Button>
+              </Link>
             </div>
 
             {/* Trust Indicators */}

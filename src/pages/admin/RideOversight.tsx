@@ -141,7 +141,7 @@ const RideOversight = () => {
             </CardHeader>
             <CardContent>
               <div className="text-3xl font-bold">
-                ${overview?.totalEarnings?.toFixed(2) || "0.00"}
+                {overview?.totalEarnings?.toFixed(2) || "0.00"} TK
               </div>
             </CardContent>
           </Card>

@@ -10,6 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import Loader from "@/assets/icons/loader/Loader";
 
 export const AdminProfile = () => {
   const { data, isLoading: isProfileLoading } = useGetMeQuery(undefined);
@@ -46,14 +47,7 @@ export const AdminProfile = () => {
   };
 
   if (isProfileLoading) {
-    return (
-      <div className="flex justify-center items-center min-h-screen">
-        <div className="flex flex-col items-center space-y-4">
-          <div className="w-8 h-8 border-2 border-muted border-t-foreground rounded-full animate-spin"></div>
-          <p className="text-muted-foreground">Loading profile...</p>
-        </div>
-      </div>
-    );
+    <Loader />;
   }
 
   return (

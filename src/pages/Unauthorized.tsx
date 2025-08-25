@@ -3,7 +3,7 @@ import { Link } from "react-router";
 
 export default function Unauthorized() {
   return (
-    <div className="flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center space-y-6 text-center">
+    <div className="flex min-h-[calc(70vh-4rem)] flex-col items-center justify-center space-y-6 text-center">
       <div className="space-y-2">
         <h1 className="text-5xl font-bold tracking-tighter text-primary sm:text-6xl md:text-7xl">
           401

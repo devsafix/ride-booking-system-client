@@ -229,7 +229,7 @@ export default function RideDetails() {
                       Total Fare
                     </p>
                     <p className="text-2xl font-bold text-foreground">
-                      ${ride.fare.toFixed(2)}
+                      {ride.fare.toFixed(2)} TK
                     </p>
                   </div>
                 </div>

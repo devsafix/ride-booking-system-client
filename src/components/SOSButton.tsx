@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Phone, Share2, AlertTriangle, X } from "lucide-react";
+import { Phone, Share2, X } from "lucide-react";
 import toast from "react-hot-toast";
 
 interface SOSButtonProps {
@@ -8,10 +8,7 @@ interface SOSButtonProps {
   emergencyContacts: { name: string; phone?: string; email?: string }[];
 }
 
-export default function SOSButton({
-  rideStatus,
-  emergencyContacts,
-}: SOSButtonProps) {
+export default function SOSButton({ rideStatus }: SOSButtonProps) {
   const [open, setOpen] = useState(false);
 
   if (!["accepted", "picked_up", "in_transit"].includes(rideStatus))
@@ -19,16 +16,6 @@ export default function SOSButton({
 
   const handleCallPolice = () => {
     window.location.href = "tel:+8801709190412";
-  };
-
-  const handleNotifyContact = () => {
-    if (emergencyContacts.length === 0) {
-      toast.error("No emergency contacts saved!");
-      return;
-    }
-    const contact = emergencyContacts[0];
-    window.location.href = `sms:${contact.phone}?body=I need help! Check my location.`;
-    toast.success(`Emergency contact ${contact.name} notified.`);
   };
 
   const handleShareLocation = () => {
@@ -70,15 +57,6 @@ export default function SOSButton({
             >
               <Phone className="w-4 h-4" />
               Call Police
-            </Button>
-
-            <Button
-              onClick={handleNotifyContact}
-              variant="outline"
-              className="w-full justify-start gap-3 h-12 border-border hover:bg-muted/50 font-medium transition-all duration-200 hover:scale-[1.02]"
-            >
-              <AlertTriangle className="w-4 h-4" />
-              Notify Contact
             </Button>
 
             <Button

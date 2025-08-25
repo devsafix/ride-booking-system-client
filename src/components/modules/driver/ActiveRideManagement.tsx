@@ -19,6 +19,7 @@ import {
 import type { IRideStatus } from "@/types";
 import { MapPin, Navigation, User, Calendar, Clock } from "lucide-react";
 import { Label } from "@/components/ui/label";
+import { useGetMeQuery } from "@/redux/features/auth/auth.api";
 
 // Define status options with corresponding colors
 const statusOptions = {
@@ -35,22 +36,36 @@ const ActiveRideManagement = () => {
   });
   const [updateRideStatus, { isLoading }] = useUpdateRideStatusMutation();
 
+  const { data: userInfo } = useGetMeQuery(undefined);
+
   const [activeRide, setActiveRide] = useState<any | null>(null);
   const [selectedStatus, setSelectedStatus] = useState<IRideStatus>("accepted");
 
   // Set activeRide when data is fetched
   useEffect(() => {
-    if (data?.data?.length > 0) {
-      setActiveRide(data.data[0]); // take the first active ride
-      setSelectedStatus(data.data[0].status as IRideStatus);
+    if (
+      data?.data?.length > 0 &&
+      data?.data[0].driver === userInfo?.data?._id &&
+      userInfo?.data?.role === "driver" &&
+      userInfo?.data?.isApproved === true &&
+      userInfo?.data?.isAvailable === true
+    ) {
+      setActiveRide(data?.data[0]);
+      setSelectedStatus(data?.data[0].status as IRideStatus);
     }
-  }, [data]);
+  }, [
+    data,
+    userInfo?.data?._id,
+    userInfo?.data?.isApproved,
+    userInfo?.data?.isAvailable,
+    userInfo?.data?.role,
+    userInfo?.role,
+  ]);
 
   // Handle status update
   const handleStatusUpdate = async () => {
     if (!activeRide) return;
 
-    console.log(selectedStatus);
     try {
       await updateRideStatus({
         id: activeRide._id,

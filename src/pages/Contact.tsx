@@ -56,7 +56,7 @@ export default function Contact() {
   });
 
   // Simulated form submission handler
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+  const onSubmit = async () => {
     setIsLoading(true);
     // Simulate an API call with a delay
     await new Promise((resolve) => setTimeout(resolve, 1500));
@@ -64,7 +64,6 @@ export default function Contact() {
 
     // Simulate success
     toast.success("Your message has been sent successfully!");
-    console.log("Form submitted with data:", values);
 
     // Reset the form after successful submission
     form.reset();
@@ -93,12 +92,12 @@ export default function Contact() {
             {/* Email */}
             <li className="flex items-center gap-3">
               <Mail className="h-5 w-5 " />
-              <span>contact@yourcompany.com</span>
+              <span>contact@ridaa.com</span>
             </li>
             {/* Phone */}
             <li className="flex items-center gap-3">
               <Phone className="h-5 w-5 " />
-              <span>+1 (123) 456-7890</span>
+              <span>+8801709190412</span>
             </li>
             {/* Address */}
             <li className="flex items-start gap-3">

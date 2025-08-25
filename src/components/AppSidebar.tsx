@@ -37,10 +37,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </Link>
         <Link
           to="/"
-          className="text-center mt-3 border border-foreground flex items-center gap-2 justify-center"
+          className="text-center mt-3 border  flex items-center gap-2 justify-center"
         >
           <ArrowLeft className="h-5 w-5" />
-          <h2 className="text-sm font-bold text-foreground tracking-wide">
+          <h2 className="text-sm font-semibold text-foreground tracking-wide">
             BACK HOME
           </h2>
         </Link>
