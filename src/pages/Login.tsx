@@ -21,7 +21,10 @@ import {
   CardTitle,
   CardDescription,
 } from "@/components/ui/card";
-import { useLoginUserMutation } from "@/redux/features/auth/auth.api";
+import {
+  useGetMeQuery,
+  useLoginUserMutation,
+} from "@/redux/features/auth/auth.api";
 import {
   Mail,
   Lock,
@@ -33,6 +36,7 @@ import {
   MapPin,
   CheckCircle,
 } from "lucide-react";
+import { useEffect } from "react";
 
 // Zod schema for form validation
 const formSchema = z.object({
@@ -46,19 +50,23 @@ export default function Login() {
   const navigate = useNavigate();
   const [loginUser, { isLoading }] = useLoginUserMutation();
 
-  // useEffect(() => {
-  //   switch (user?.role) {
-  //     case "admin":
-  //       navigate("/admin/analytics", { replace: true });
-  //       break;
-  //     case "rider":
-  //       navigate("/rider/ride-request", { replace: true });
-  //       break;
-  //     case "driver":
-  //       navigate("/driver/manage-rides", { replace: true });
-  //       break;
-  //   }
-  // }, [navigate, user?.role]);
+  const { data: getUser } = useGetMeQuery(undefined);
+
+  const user = getUser?.data;
+
+  useEffect(() => {
+    switch (user?.role) {
+      case "admin":
+        navigate("/admin/analytics", { replace: true });
+        break;
+      case "rider":
+        navigate("/rider/ride-request", { replace: true });
+        break;
+      case "driver":
+        navigate("/driver/manage-rides", { replace: true });
+        break;
+    }
+  }, [navigate, user?.role]);
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -73,22 +81,20 @@ export default function Login() {
       const res = await loginUser(values).unwrap();
       toast.success(res.message || "Login successful!");
 
-      // switch (res?.data?.user?.role) {
-      //   case "admin":
-      //     navigate("/admin/profile", { replace: true });
-      //     break;
-      //   case "rider":
-      //     navigate("/rider/profile", { replace: true });
-      //     break;
-      //   case "driver":
-      //     navigate("/driver/profile", { replace: true });
-      //     break;
-      //   default:
-      //     navigate("/", { replace: true });
-      //     break;
-      // }
-
-      navigate("/");
+      switch (res?.data?.user?.role) {
+        case "admin":
+          navigate("/admin/profile", { replace: true });
+          break;
+        case "rider":
+          navigate("/rider/profile", { replace: true });
+          break;
+        case "driver":
+          navigate("/driver/profile", { replace: true });
+          break;
+        default:
+          navigate("/", { replace: true });
+          break;
+      }
     } catch (error: any) {
       toast.error(
         error?.data?.message || "Login failed. Please check your credentials."
