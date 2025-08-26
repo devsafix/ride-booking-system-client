@@ -169,7 +169,11 @@ const HeroBanner: React.FC = () => {
   };
 
   if (isLoading) {
-    return <Loader />;
+    return (
+      <div className="min-h-[80vh] flex items-center justify-center">
+        <Loader />
+      </div>
+    );
   }
 
   return (
