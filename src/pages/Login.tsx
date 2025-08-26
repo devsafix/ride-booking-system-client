@@ -21,10 +21,7 @@ import {
   CardTitle,
   CardDescription,
 } from "@/components/ui/card";
-import {
-  useGetMeQuery,
-  useLoginUserMutation,
-} from "@/redux/features/auth/auth.api";
+import { useLoginUserMutation } from "@/redux/features/auth/auth.api";
 import {
   Mail,
   Lock,
@@ -36,7 +33,6 @@ import {
   MapPin,
   CheckCircle,
 } from "lucide-react";
-import { useEffect } from "react";
 
 // Zod schema for form validation
 const formSchema = z.object({
@@ -49,10 +45,6 @@ type FormValues = z.infer<typeof formSchema>;
 export default function Login() {
   const navigate = useNavigate();
   const [loginUser, { isLoading }] = useLoginUserMutation();
-
-  const { data: getUser } = useGetMeQuery(undefined);
-
-  const user = getUser?.data;
 
   // useEffect(() => {
   //   switch (user?.role) {
