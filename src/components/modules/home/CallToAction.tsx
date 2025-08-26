@@ -9,10 +9,18 @@ const CallToAction: React.FC = () => {
       <div className="max-w-6xl mx-auto px-4">
         <div className="max-w-4xl mx-auto text-center">
           <div className="mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold mb-6">
+            <h2
+              data-aos="fade-up"
+              data-aos-delay="100"
+              className="text-3xl sm:text-4xl font-bold mb-6"
+            >
               Ready to Transform Your Journey?
             </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
+            <p
+              data-aos="fade-up"
+              data-aos-delay="200"
+              className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8"
+            >
               Join thousands of users who have already discovered the
               convenience, safety, and reliability of our platform.
             </p>

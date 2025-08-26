@@ -146,12 +146,10 @@ export default function Navbar() {
             </NavigationMenu>
           </PopoverContent>
         </Popover>
-        {/* main nav: Logo */}
+        <Link to="/" className="text-primary hover:text-primary/90">
+          <Logo />
+        </Link>
         <div className="flex items-center gap-5">
-          <Link to="/" className="text-primary hover:text-primary/90">
-            <Logo />
-          </Link>
-
           {/* Main navigation menu (desktop only) */}
           <NavigationMenu className="max-md:hidden">
             <NavigationMenuList className="gap-2">

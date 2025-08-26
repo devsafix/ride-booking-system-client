@@ -53,10 +53,18 @@ const ServiceHighlights: React.FC = () => {
     <section className="md:py-16 py-10">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4">
+          <h2
+            data-aos="fade-up"
+            data-aos-delay="100"
+            className="text-3xl sm:text-4xl font-bold mb-4"
+          >
             Why Choose Our Platform
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p
+            data-aos="fade-up"
+            data-aos-delay="200"
+            className="text-lg text-muted-foreground max-w-2xl mx-auto"
+          >
             Experience the difference with our premium ride booking service
             designed for your comfort and convenience.
           </p>

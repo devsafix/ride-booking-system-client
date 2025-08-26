@@ -24,10 +24,11 @@ const HeroBanner: React.FC = () => {
   const driverObj = useRef<Driver | null>(null);
 
   useEffect(() => {
-    // Check if the user is not authenticated and has not seen the tour before
+    // Prevent tour on mobile devices (e.g., screen width < 768px)
+    if (window.innerWidth < 768) return;
+
     const hasSeenTour = localStorage.getItem("hasSeenTour");
     if (!user && !hasSeenTour) {
-      // Initialize the driver instance only once
       if (!driverObj.current) {
         driverObj.current = driver({
           showProgress: true,
@@ -42,7 +43,6 @@ const HeroBanner: React.FC = () => {
                 align: "center",
               },
             },
-
             {
               element: "#features-link",
               popover: {
@@ -75,8 +75,7 @@ const HeroBanner: React.FC = () => {
               element: "#contact-link",
               popover: {
                 title: "Contact With Us",
-                description:
-                  "Change the website's theme for a better viewing experience.",
+                description: "Reach out to us for any queries or support.",
                 side: "left",
                 align: "center",
               },
@@ -88,7 +87,6 @@ const HeroBanner: React.FC = () => {
       setTimeout(() => {
         if (driverObj.current) {
           (driverObj.current as any).drive();
-
           localStorage.setItem("hasSeenTour", "true");
         }
       }, 500);
@@ -177,18 +175,26 @@ const HeroBanner: React.FC = () => {
   }
 
   return (
-    <section className="relative min-h-[80vh] flex items-center justify-center px-4 md:py-16 py-10">
+    <section className="relative min-h-[80vh] flex items-center justify-center px-4 md:py-20 py-10">
       <div className="max-w-6xl w-full">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
           <div className="text-center lg:text-left space-y-4 xl:space-y-6">
             {/* Title */}
-            <h1 className="text-5xl md:text-6xl font-extrabold leading-tight tracking-tight">
+            <h1
+              data-aos="fade-up"
+              data-aos-delay="100"
+              className="text-5xl md:text-6xl font-extrabold leading-tight tracking-tight"
+            >
               {content.title}
             </h1>
 
             {/* Subtitle */}
-            <p className="text-md md:text-xl dark:text-muted-foreground max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+            <p
+              data-aos="fade-up"
+              data-aos-delay="200"
+              className="text-md md:text-xl dark:text-muted-foreground max-w-2xl mx-auto lg:mx-0 leading-relaxed"
+            >
               {content.subtitle}
             </p>
 
@@ -196,6 +202,8 @@ const HeroBanner: React.FC = () => {
             <div className="grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-6 mt-8">
               {content.features.map((feature, index) => (
                 <div
+                  data-aos="fade-up"
+                  data-aos-delay={index * 200}
                   key={index}
                   className="flex flex-col xl:flex-col items-center xl:items-center space-y-2 lg:space-y-0 lg:space-x-3 xl:space-x-0 xl:space-y-2 p-3 rounded-xl border border-gray-800 hover:border-gray-600 transition"
                 >
@@ -210,6 +218,8 @@ const HeroBanner: React.FC = () => {
             {/* CTA */}
             <div className="flex gap-4 justify-center lg:justify-start items-center md:mt-8 mt-12">
               <Button
+                data-aos="fade-up"
+                data-aos-delay="300"
                 size="lg"
                 onClick={handleCTAClick}
                 className="px-8 py-3 rounded-xl font-semibold"
@@ -221,6 +231,8 @@ const HeroBanner: React.FC = () => {
               {!user && (
                 <Link to={"/login"}>
                   <Button
+                    data-aos="fade-up"
+                    data-aos-delay="300"
                     variant="outline"
                     id="get-started-button"
                     size="lg"
@@ -235,7 +247,11 @@ const HeroBanner: React.FC = () => {
 
           {/* Right Image */}
           <div className="relative">
-            <div className="relative overflow-hidden rounded-2xl">
+            <div
+              data-aos="fade"
+              data-aos-delay="200"
+              className="relative overflow-hidden rounded-2xl"
+            >
               <img
                 src="https://i.ibb.co.com/nqjJSf5N/riding-photo.webp"
                 alt="Ride booking experience"

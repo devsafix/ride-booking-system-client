@@ -39,8 +39,18 @@ const HowItWorks: React.FC = () => {
     <section className="md:py-16 py-10 bg-muted/30">
       <div className="max-w-6xl mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4">How It Works</h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <h2
+            data-aos="fade-up"
+            data-aos-delay="100"
+            className="text-3xl sm:text-4xl font-bold mb-4"
+          >
+            How It Works
+          </h2>
+          <p
+            data-aos="fade-up"
+            data-aos-delay="200"
+            className="text-lg text-muted-foreground max-w-2xl mx-auto"
+          >
             Getting a ride has never been easier. Follow these simple steps to
             book your next journey.
           </p>

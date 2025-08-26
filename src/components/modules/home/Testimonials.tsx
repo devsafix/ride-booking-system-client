@@ -118,10 +118,18 @@ const Testimonials: React.FC = () => {
     <section className="md:py-16 py-10 bg-muted/30">
       <div className="max-w-6xl mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4">
+          <h2
+            data-aos="fade-up"
+            data-aos-delay="100"
+            className="text-3xl sm:text-4xl font-bold mb-4"
+          >
             What Our Users Say
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p
+            data-aos="fade-up"
+            data-aos-delay="200"
+            className="text-lg text-muted-foreground max-w-2xl mx-auto"
+          >
             Don't just take our word for it. Here's what riders and drivers have
             to say about their experience.
           </p>
