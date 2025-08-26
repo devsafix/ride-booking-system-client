@@ -23,7 +23,6 @@ import {
   useGetMeQuery,
   useLogoutUserMutation,
 } from "@/redux/features/auth/auth.api";
-import { logout as logoutAction } from "@/redux/features/auth/auth.slice";
 import Logo from "@/assets/icons/logo";
 import userIcon from "../../assets/images/user-icon.webp";
 import { ModeToggle } from "./ModeToggler";
@@ -84,7 +83,6 @@ export default function Navbar() {
   const handleLogout = async () => {
     try {
       await logoutUser({}).unwrap();
-      dispatch(logoutAction());
       dispatch(baseApi.util.resetApiState());
       toast.success("Logged out successfully!");
     } catch (error: any) {

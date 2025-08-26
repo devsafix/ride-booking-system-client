@@ -4,7 +4,6 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { toast } from "react-hot-toast";
-import { useDispatch } from "react-redux";
 import {
   Form,
   FormControl,
@@ -26,7 +25,6 @@ import {
   useGetMeQuery,
   useLoginUserMutation,
 } from "@/redux/features/auth/auth.api";
-import { setCredentials } from "@/redux/features/auth/auth.slice";
 import {
   Mail,
   Lock,
@@ -50,7 +48,6 @@ type FormValues = z.infer<typeof formSchema>;
 
 export default function Login() {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const [loginUser, { isLoading }] = useLoginUserMutation();
 
   const { data: getUser } = useGetMeQuery(undefined);
@@ -82,9 +79,6 @@ export default function Login() {
   const onSubmit: SubmitHandler<FormValues> = async (values) => {
     try {
       const res = await loginUser(values).unwrap();
-      dispatch(
-        setCredentials({ user: res.data.user, token: res.data.accessToken })
-      );
       toast.success(res.message || "Login successful!");
 
       switch (res?.data?.user?.role) {
