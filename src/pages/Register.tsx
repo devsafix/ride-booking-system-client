@@ -40,9 +40,12 @@ import {
   Car,
   Users,
   Shield,
+  Eye,
+  EyeOff,
   Zap,
   ArrowRight,
 } from "lucide-react";
+import { useState } from "react";
 
 // Zod schema for form validation
 const formSchema = z.object({
@@ -61,6 +64,8 @@ type FormValues = z.infer<typeof formSchema>;
 export default function Register() {
   const navigate = useNavigate();
   const [registerUser, { isLoading }] = useRegisterUserMutation();
+
+  const [showPassword, setShowPassword] = useState(false);
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -263,11 +268,22 @@ export default function Register() {
                             <div className="relative">
                               <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                               <Input
-                                type="password"
+                                type={showPassword ? "text" : "password"}
                                 placeholder="Create a strong password"
-                                className="pl-10"
+                                className="pl-10 pr-10"
                                 {...field}
                               />
+                              <button
+                                type="button"
+                                onClick={() => setShowPassword(!showPassword)}
+                                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground"
+                              >
+                                {showPassword ? (
+                                  <EyeOff className="h-4 w-4" />
+                                ) : (
+                                  <Eye className="h-4 w-4" />
+                                )}
+                              </button>
                             </div>
                           </FormControl>
                           <FormMessage />

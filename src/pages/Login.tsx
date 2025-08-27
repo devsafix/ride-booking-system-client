@@ -34,9 +34,11 @@ import {
   Shield,
   Clock,
   MapPin,
+  Eye,
+  EyeOff,
   CheckCircle,
 } from "lucide-react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 // Zod schema for form validation
 const formSchema = z.object({
@@ -49,6 +51,8 @@ type FormValues = z.infer<typeof formSchema>;
 export default function Login() {
   const navigate = useNavigate();
   const [loginUser, { isLoading }] = useLoginUserMutation();
+
+  const [showPassword, setShowPassword] = useState(false);
 
   const { data: getUser } = useGetMeQuery(undefined);
 
@@ -265,11 +269,22 @@ export default function Login() {
                             <div className="relative">
                               <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                               <Input
-                                type="password"
+                                type={showPassword ? "text" : "password"}
                                 placeholder="Enter your password"
-                                className="pl-10"
+                                className="pl-10 pr-10"
                                 {...field}
                               />
+                              <button
+                                type="button"
+                                onClick={() => setShowPassword(!showPassword)}
+                                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground"
+                              >
+                                {showPassword ? (
+                                  <EyeOff className="h-4 w-4" />
+                                ) : (
+                                  <Eye className="h-4 w-4" />
+                                )}
+                              </button>
                             </div>
                           </FormControl>
                           <FormMessage />
