@@ -5,9 +5,7 @@ import { useGetActiveRidesQuery } from "@/redux/features/drive/drive.api";
 
 export default function GlobalSOS() {
   const { data: me } = useGetMeQuery(undefined);
-  const { data: activeRideData } = useGetActiveRidesQuery(undefined, {
-    pollingInterval: 10000,
-  });
+  const { data: activeRideData } = useGetActiveRidesQuery(undefined);
 
   if (!me?.data || !activeRideData?.data) return null;
 
