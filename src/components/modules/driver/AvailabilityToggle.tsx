@@ -38,7 +38,6 @@ const AvailabilityToggle = () => {
       await updateAvailability({ isAvailable: checked }).unwrap();
       toast.success(`You are now ${checked ? "online" : "offline"}.`);
     } catch (error: any) {
-      console.error(error);
       toast.error(error?.data?.message || "Failed to update status.");
       setIsAvailable(!checked);
     }

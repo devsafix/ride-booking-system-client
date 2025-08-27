@@ -41,11 +41,6 @@ const ActiveRideManagement = () => {
   const [activeRide, setActiveRide] = useState<any | null>(null);
   const [selectedStatus, setSelectedStatus] = useState<IRideStatus>("accepted");
 
-  console.log(activeRide);
-  console.log(data?.data?.length);
-  console.log(data?.data[0].driver);
-  console.log(userInfo?.data?._id);
-
   // Set activeRide when data is fetched
   useEffect(() => {
     if (

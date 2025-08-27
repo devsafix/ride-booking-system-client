@@ -18,8 +18,6 @@ export default function GlobalSOS() {
     (ride: any) => ride.rider?._id === userId || ride.driver === userId
   );
 
-  console.log(activeRide);
-
   if (!activeRide) return null;
 
   return (
