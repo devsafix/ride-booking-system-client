@@ -10,13 +10,13 @@ export default function GlobalSOS() {
 
   if (!me?.data || !activeRideData?.data) return null;
 
-  const userId = me.data._id;
-  const activeRide = activeRideData.data[0];
+  const userId = me?.data._id;
+  const activeRide = activeRideData?.data[0];
   const rideStatus = activeRide?.status;
 
   // Check if logged-in user is either the rider or driver
   const isAuthorized =
-    activeRide?.rider === userId || activeRide?.driver === userId;
+    activeRide?.rider?._id === userId || activeRide?.driver === userId;
 
   if (!isAuthorized) return null;
 
