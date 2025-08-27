@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import SOSButton from "@/components/SOSButton";
 import { useGetMeQuery } from "@/redux/features/auth/auth.api";
 import { useGetActiveRidesQuery } from "@/redux/features/drive/drive.api";
@@ -10,20 +11,21 @@ export default function GlobalSOS() {
 
   if (!me?.data || !activeRideData?.data) return null;
 
-  const userId = me?.data._id;
-  const activeRide = activeRideData?.data[0];
-  const rideStatus = activeRide?.status;
+  const userId = me.data._id;
 
-  // Check if logged-in user is either the rider or driver
-  const isAuthorized =
-    activeRide?.rider?._id === userId || activeRide?.driver === userId;
+  // Find ride where user is rider or driver
+  const activeRide = activeRideData.data.find(
+    (ride: any) => ride.rider?._id === userId || ride.driver === userId
+  );
 
-  if (!isAuthorized) return null;
+  console.log(activeRide);
+
+  if (!activeRide) return null;
 
   return (
     <SOSButton
-      rideStatus={rideStatus}
-      emergencyContacts={me?.data?.emergencyContacts || []}
+      rideStatus={activeRide.status}
+      emergencyContacts={me.data.emergencyContacts || []}
     />
   );
 }

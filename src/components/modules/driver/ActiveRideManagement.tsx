@@ -41,17 +41,30 @@ const ActiveRideManagement = () => {
   const [activeRide, setActiveRide] = useState<any | null>(null);
   const [selectedStatus, setSelectedStatus] = useState<IRideStatus>("accepted");
 
+  console.log(activeRide);
+  console.log(data?.data?.length);
+  console.log(data?.data[0].driver);
+  console.log(userInfo?.data?._id);
+
   // Set activeRide when data is fetched
   useEffect(() => {
     if (
       data?.data?.length > 0 &&
-      data?.data[0].driver === userInfo?.data?._id &&
       userInfo?.data?.role === "driver" &&
-      userInfo?.data?.isApproved === true &&
-      userInfo?.data?.isAvailable === true
+      userInfo?.data?.isApproved &&
+      userInfo?.data?.isAvailable
     ) {
-      setActiveRide(data?.data[0]);
-      setSelectedStatus(data?.data[0].status as IRideStatus);
+      // Find ride where driver matches userInfo._id
+      const matchingRide = data?.data?.find(
+        (ride: any) => ride.driver === userInfo?.data?._id
+      );
+
+      if (matchingRide) {
+        setActiveRide(matchingRide);
+        setSelectedStatus(matchingRide.status as IRideStatus);
+      } else {
+        setActiveRide(null);
+      }
     }
   }, [
     data,
@@ -59,7 +72,6 @@ const ActiveRideManagement = () => {
     userInfo?.data?.isApproved,
     userInfo?.data?.isAvailable,
     userInfo?.data?.role,
-    userInfo?.role,
   ]);
 
   // Handle status update
